@@ -1,0 +1,112 @@
+        body{
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(-520deg, #5772a1 0%, #132e5b 100%);
+          /* background: url('pw.png') no-repeat center center fixed;*/
+           width: 100%;
+        }
+        :root{
+            --blue: #275fc0;
+            --blackmood:#0f357c;
+            --primary-color: rgba(0, 89, 255, 0.806);
+            --text-black: rgb(43, 43, 43);
+            --background:#e7eff6 ;
+            --branco: #f6f3f3;
+                
+}
+.form .img1{
+    width: 90px;
+    height: 90px;
+}
+      
+.login{
+    background: #f9f7f7; /* Transparência branca */
+    border: 1px solid rgba(12, 39, 89, 0.806);
+    border-radius: 10px;
+    box-shadow: 1px 4px 10px black; /* Esfumado */
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    text-align: center;
+    padding: 20px;
+   
+}
+  
+.form h1{
+    color:var(--blue);
+}
+.form h1 .skills{
+   color: white;
+   text-shadow: 1px 1px 3px var(--blue);
+}
+.form h1 .mada{
+   text-shadow:0 0 1px rgb(26, 65, 149);
+}
+.form p{
+    margin-bottom: 10px;
+    color: #605f5f;
+}
+  /* Estilo do container do input */
+        .input-container {
+            position: relative;
+            width: 308px; /* Largura do input */
+            margin-bottom: 20px;
+            margin-left: 18px;
+}
+
+/* Estilo do input */
+.iconstyle {
+            width: 100%;
+            height: 29px;
+            padding: 10px 10px 10px 40px; /* Espaço para o ícone */
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            outline: none;
+           
+}
+.iconstyle:hover { 
+    box-shadow: 0 0 2px #010918 ;
+
+}
+
+/* Estilo do ícone */
+.icon {
+            position: absolute;
+            left: 10px; /* Distância do lado esquerdo */
+            top: 50%;
+            transform: translateY(-50%); /* Centraliza verticalmente */
+            width: 20px;
+            height: 20px;
+}
+
+.form button{
+    width: 90%;
+    padding: 15px;
+    background-color: var(--blue);
+    color: #ffff;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.4s ease;
+}
+.form button:hover{
+    background-color:#12419a ;
+   
+}
+.opçao a{
+    color: var(--blue);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+.opçao a:hover{
+    color: var(--blackmood);
+}
+    
+  

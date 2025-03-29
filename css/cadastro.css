@@ -1,0 +1,125 @@
+body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+}
+
+.registo {
+    background: #f9f7f7;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    width: 500px;
+    height: 550px;
+   
+    
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color:#2a5298;
+}
+
+   .inputteam {
+       display: flex;
+       align-items: center;
+       position: relative;
+   }
+   
+   
+.inputteam input {
+    width: 90%;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius:5px;
+    box-sizing: border-box;
+    font-family: 16px;
+    height: 43px;
+    outline: none;
+    margin-left:20px;
+    padding: 10px 10px 10px 40px; /* Espaço para o ícone */
+   }
+.inputteam input:hover{
+    box-shadow: 0 0 2px #010918 ;
+}
+.icon {
+    position: absolute;
+    left: 30px; /* Distância do lado esquerdo */
+    top: 40%;
+    transform: translateY(-50%); /* Centraliza verticalmente */
+    width: 20px;
+    height: 20px;
+}
+   #mensagem{
+    margin-top: 20px;
+    font-size: 16px;
+}
+   
+    .data label {
+    margin-left: 15px;
+    margin-top: 105vh;
+    color: #4f4b4b;
+    padding: 1px;
+}
+   
+.data select {
+    width: 24%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius:5px;
+    box-sizing: border-box;
+    font-family: 16px;
+    outline: none;
+    margin-right:4vh;
+    margin-left:20px;
+}
+.data select:hover {
+    box-shadow:0 0 2px #010918 ;
+}
+
+.genero {
+    margin-top: 5vh;
+}
+
+.genero label {
+    margin: 3px 10px;
+}
+.genero .genero1 {
+    margin-left: 20vh;
+    margin-top: -20px;
+    width: 60px;
+    height: 20px;
+   
+}
+.genero .genero2 {
+    margin-left: 40vh;
+    margin-top: -20px;
+    width: 60px;
+    height: 20px;
+}
+.genero .genero3 {
+    margin-left: 60vh;
+    margin-top: -20px;
+    width:120px;
+}
+
+button {
+    width: 50%;
+    padding: 15px;
+    background-color: #2a5298;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 4%;
+    margin-left:23vh;
+}
+
+button:hover {
+    background-color: #1e3c72;
+}
+   

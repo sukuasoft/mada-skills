@@ -1,0 +1,35 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.text1{
+    position: relative;
+    text-align: center;
+}
+img{
+    width: 100px;
+    height: auto;
+}
+.cursos{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    position: fixed;
+    margin-top: 90px;
+}
+
+.div{
+display: flex;
+width: 400px;
+justify-content: center;
+align-items: center;
+flex-wrap: wrap;
+margin-top: 80px;
+position: relative;
+top: 50%;
+left: 20%;
+transform: translate(-50%,-50%);
+}
+

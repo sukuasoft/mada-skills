@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/tutorial.css">
+
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <figure>
+            <img src="img/logo.png" alt="" class="logotipo">
+        </figure>
+        <nav>
+            <a href="index.html">
+                <img src="img/house.png" alt=""></img>
+                Home
+            </a>
+            <a href="tutorias.html">
+                <img src="img/icon.png" alt=""></img>
+                Tutoriais
+            </a>
+            <a href="exercicios.html">
+                <img src="img/sz.png" alt=""></img>
+                Exercícios
+            </a>
+            <a href="aula2.html">
+                <img src="img/libr.png" alt=""></img>
+                Biblioteca
+            </a>
+        </nav>
+        <!--botões do home-->
+        <div class="access">
+            <!--Entrar-->
+            <button type="button" class="b1" id="entrar">Log in</button>
+                <script>
+                    //entrar
+                    document.getElementById("entrar").addEventListener("click", function()
+                    {
+                    window.location.href="login.html";});
+                </script>
+
+                <!--Cadastrar-->
+            <button type="button" class="b2" id="cadastrar">Cadastrar</button>
+                <script>
+                    //cadastrar
+                    document.getElementById("cadastrar").addEventListener("click", function()
+                    {
+                    window.location.href="cadastro.html";
+                    });
+                </script>
+        </div>
+    </header>
+    <img src="img/lunifusco.webp" class="lunimage" alt="">
+    <h1>Nossos Tutoriais</h1>
+</body>
+</html>

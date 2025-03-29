@@ -1,0 +1,16 @@
+
+body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background: linear-gradient(135deg, #0062cc 0%, #0056b3 100%);
+}
+
+.registo {
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+}

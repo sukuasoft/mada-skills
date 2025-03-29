@@ -1,0 +1,148 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f4f4f4;
+}
+
+/* Container do carrossel */
+.allcarrossel {
+  position: relative;
+  width: 80%;
+  max-width: 800px;
+  overflow: hidden;
+}
+
+/* Estilização do carrossel */
+.imagens {
+  display: flex;
+  transition: transform 1s ease-in-out;
+}
+
+.imagens img {
+  width: 100%;
+  flex-shrink: 0;
+}
+
+/* Bolinhas (indicadores) */
+.bolhas {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.bolha {
+  height: 10px;
+  width: 10px;
+  margin: 0 5px;
+  display: inline-block;
+  background-color: #ccc;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.bolha.active {
+  background-color: #3498db;
+}
+
+  </style>
+  <title>Carrossel Girassol</title>
+    
+</head>
+<body>
+  <div class="allcarrossel">
+    <div class="imagens">
+      <!-- Adicione imagens de 4 a 10 aqui -->
+      <img src="imagem4.jpg" alt="Imagem 4">
+      <img src="imagem5.jpg" alt="Imagem 5">
+      <img src="imagem6.jpg" alt="Imagem 6">
+      <img src="imagem7.jpg" alt="Imagem 7">
+      <img src="imagem8.jpg" alt="Imagem 8">
+      <img src="imagem9.jpg" alt="Imagem 9">
+      <img src="imagem10.jpg" alt="Imagem 10">
+    </div>
+    <div class="bolhas">
+      <!-- Cria os indicadores (bolinhas) -->
+      <span class="bolha active"></span>
+      <span class="bolha"></span>
+      <span class="bolha"></span>
+      <span class="bolha"></span>
+      <span class="bolha"></span>
+      <span class="bolha"></span>
+      <span class="bolha"></span>
+    </div>
+  </div>
+
+  <script>
+    
+const imagens = document.querySelector('.imagens');
+const bolhas = document.querySelectorAll('.bolha');
+
+let currentIndex = 0;
+
+// Atualiza o carrossel para mostrar a imagem atual
+function updateCarousel(index) {
+  const imageWidth = imagens.clientWidth;
+  imagens.style.transform = `translateX(-${index * imageWidth}px)`;
+
+  // Atualiza os indicadores (bolinhas)
+  bolhas.forEach((bolha, i) => {
+    bolha.classList.toggle('active', i === index);
+  });
+}
+
+// Função para passar para a próxima imagem automaticamente
+function nextSlide() {
+  currentIndex = (currentIndex + 1) % bolhas.length; // Volta ao início após a última imagem
+  updateCarousel(currentIndex);
+}
+
+// Evento para os indicadores (caso o usuário clique em uma bolinha)
+bolhas.forEach((bolha, index) => {
+  bolha.addEventListener('click', () => {
+    currentIndex = index;
+    updateCarousel(currentIndex);
+  });
+});
+
+// Inicia o carrossel automático
+setInterval(nextSlide, 3000); // Alterna as imagens a cada 3 segundos
+
+
+  </script>
+</body>
+</html>
+
+
+
+---
+
+<!--Funcionamento:
+1. HTML : Adicione as imagens de 4 a 10 no contêiner <div class="imagens"> e configure os indicadores (bolinhas) correspondentes.
+2. CSS : Estiliza o carrossel, animação e as bolinhas para indicar qual imagem está visível.
+3. JavaScript :
+   - Altera a posição do carrossel usando translateX para mover as imagens horizontalmente.
+   - Atualiza as bolinhas para destacar a imagem atual.
+   - Usa setInterval para mudar as imagens automaticamente a cada 3 segundos.
+
+---
+
+Personalização:
+- Substitua os nomes das imagens (imagem4.jpg, imagem5.jpg, etc.) pelas URLs ou caminhos corretos.
+- Ajuste a velocidade da transição alterando o tempo no setInterval (por exemplo, 5000 para 5 segundos).
+- Caso queira adicionar mais imagens, basta atualizar o HTML e garantir que o número de bolinhas corresponda ao total.
+
+Se precisar de mais funcionalidades ou ajustes, como botões de navegação manual, estou aqui para ajudar! 🚀✨
+-->

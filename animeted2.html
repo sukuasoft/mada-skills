@@ -1,0 +1,111 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skeleton Screen</title>
+  <style>
+    
+/* Reset básico */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f4f4f4;
+}
+
+/* Estilo da Skeleton Screen */
+.skeleton-container {
+  width: 300px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #e0e0e0 25%, #f4f4f4 50%, #e0e0e0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+.skeleton-title {
+  height: 30px;
+  width: 70%;
+}
+
+.skeleton-text {
+  height: 15px;
+  width: 100%;
+}
+
+.skeleton-button {
+  height: 35px;
+  width: 50%;
+}
+
+/* Animação shimmer */
+@keyframes shimmer {
+  from {
+    background-position: -200% 0;
+  }
+  to {
+    background-position: 200% 0;
+  }
+}
+
+/* Estilo do conteúdo real */
+.content-container {
+  width: 300px;
+  text-align: center;
+  padding: 20px;
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+  </style>
+</head>
+<body>
+  <div class="skeleton-container">
+    <div class="skeleton skeleton-title"></div>
+    <div class="skeleton skeleton-text"></div>
+    <div class="skeleton skeleton-text"></div>
+    <div class="skeleton skeleton-button"></div>
+  </div>
+
+  <div class="content-container" style="display: none;">
+    <h1>Título Carregado</h1>
+    <p>Este é o conteúdo carregado com sucesso.</p>
+    <button>Botão</button>
+  </div>
+<script>
+    // Simula o carregamento e troca o skeleton pelo conteúdo
+document.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => {
+    document.querySelector('.skeleton-container').style.display = 'none';
+    document.querySelector('.content-container').style.display = 'block';
+  }, 3000); // Simula 3 segundos de carregamento
+});
+</script>
+</body>
+</html>
+
+
+
+<!--Explicação:
+1. HTML : Define um contêiner para o skeleton (simulando carregamento) e outro para o conteúdo real.
+2. CSS : Aplica o efeito shimmer com animação em gradiente para criar o efeito visual de carregamento dinâmico.
+3. JavaScript : Simula o carregamento (usando setTimeout) e substitui o skeleton pelo conteúdo real após o tempo definido.
+
+Com isso, você terá uma Skeleton Screen funcional e animada que melhora a percepção de carregamento e experiência do usuário. Se precisar de ajustes ou melhorias, avise! 😊✨⁽¹⁾
+
+Origens:
+[1]  (https://github.com/ricardo-cas/pandas/tree/eefd8f3ed9250c15e029b7ae59a24ef9f7ffc4ab/GUIA_MARKDOWN.MD)
+-->
