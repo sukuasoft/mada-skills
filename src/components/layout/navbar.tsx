@@ -1,10 +1,6 @@
-
-import React from "react";
-import './index.css';
-
-export default function Navbar() {
-  return (
-    <header>
+export default function Navbar(){
+    return (
+        <header>
       <figure>
         <img src="/images/madalogo1.jpg" alt="" className="logotipo" />
       </figure>
@@ -39,5 +35,5 @@ export default function Navbar() {
         </button>
       </div>
     </header>
-  );
+    )
 }
