@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import '@/styles/main.css';
+import './main.css';
 
 export const metadata: Metadata = {
   title: "MadaSkills",
+  description: 'Construa o amanhã com habilidades de hoje'
 };
 
 export default function RootLayout({

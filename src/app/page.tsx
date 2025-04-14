@@ -1,260 +1,137 @@
+import ExerciseCard from "@/components/features/exercise-card";
+import TutorialCard from "@/components/features/tutorial-card";
+import HomeHeader from "@/components/layout/home-header";
+import HomeSection from "@/components/layout/home-section";
 import Navbar from "@/components/layout/navbar";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselPrevious,
+  CarouselNext,
+  CarouselItem,
+} from "@/components/ui/carousel";
+import Image from "next/image";
+
+import youngWomen from "@/assets/young-women.png";
+import youngGroup from "@/assets/young-group.png";
+import Conquista from "@/components/features/conquista";
+
+import { GraduationCap, Dumbbell, BookOpen, FileBadge } from "lucide-react";
+import TestemunhoCard from "@/components/features/testemunho-card";
+import { Button } from "@/components/ui/button";
+
+import Link from "next/link";
+import Footer from "@/components/layout/footer";
 
 export default function Home() {
   return (
     <div>
-    <Navbar />
-    <img src="/images/lunifusco.webp" className="lunimage" alt="" />
-    <div className="home">
-      <p>
-        <span className="mada">MADA</span>
-        <span className="skills">SKILLS</span>
-        <br />
-        Cresça, Codifique Seus Sonhos e Realize Seu Pontecial
-        <br />
-        Construa o Amanhã com Habilidades de Hoje
-      </p>
-      <button className="bb1">Ver Cursos</button>
-    </div>
+      <Navbar currentPage="home" />
+      <HomeHeader />
 
-    <section className="beneficio">
-      <div>
-        <i data-feather="code"></i>
-        <h3>Cursos Interativos</h3>
-        <p>Conteúdo atualizado e projetos reais</p>
-      </div>
-
-      <div>
-        <h3>Adquira Habilidades</h3>
-        <p>Não perca a tua chance de ser um profissional nesta área</p>
-      </div>
-
-      <div>
-        <h3>Conteúdo Exclusivo</h3>
-        <p>Aprenda com matérias atualizadas</p>
-      </div>
-
-      <div>
-        <h3>Acesso 24/7</h3>
-        <p>Estude quando e onde quiser</p>
-      </div>
-    </section>
-    <div className="allcarrossel">
-      <div className="imagens">
-        <img src="/images/studo.jpg" alt="" />
-        <img src="/images/estudo3.jpg" alt="" />
-        <img src="/images/stu0.jpg" />
-        <img src="/images/studo6.jpg" alt="Imagem1" />
-        <img src="/images/studo7.jpg" />
-        <img src="/images/OIP (1).jpg" />
-      </div>
-    </div>
-    <button type="submit" className="sobrenos">
-      Sobre Nós
-    </button>
-    <div className="bolhas">
-      {/*<!-- Cria os indicadores (bolinhas) -->*/}
-      <span className="bolha active"></span>
-      <span className="bolha"></span>
-      <span className="bolha"></span>
-      <span className="bolha"></span>
-      <span className="bolha"></span>
-      <span className="bolha"></span>
-    </div>
-
-    <script src="index.js"></script>
-    {/*<!--incicio do card-->*/}
-    <h2 className="destaque">Cursos em Destaque</h2>
-    <div className="cards">
-      <div className="card" id="card">
-        <img src="/images/html grey.png" alt="" />
-        <hr />
-        <div className="conteudo">
-          <h1
-            style={{
-              color: "rgb(213, 60, 4)",
-            }}
-          >
-            {" "}
-            <abbr title="Hypertext Markup Laguange">HTML</abbr>
-          </h1>
-          <br />
-          <p>
-            Linguagem de Marcação de Hipertexto responsável pela parte
-            estrutural de uma página web.
-          </p>
-          <button
-            style={{
-              backgroundColor: "rgb(213, 60, 4)",
-            }}
-            className="more"
-            id="aulahtml"
-          >
-            Saber mais
-          </button>
+      <div className="flex gap-4 px-10 py-10 bg-[#e9f3ff] items-center">
+        <div className="flex gap-1 flex-col">
+          <p className="text-primary-dark font-bold text-3xl">Melhores</p>
+          <div className="bg-primary-dark h-[1px]"></div>
+          <p className="text-primary  font-bold text-3xl">Tutoriais</p>
         </div>
-      </div>
-      {/*<!--FIm do card-->
-      <!--incicio do card-->*/}
-      <div className="card">
-        <img src="/images/css grey.jpg" alt="" />
-        <hr />
-        <div className="conteudo">
-          <h1>
-            {" "}
-            <abbr title="Cascading Style Sheet">CSS</abbr>
-          </h1>
-          <br />
-          <p>
-            Folha de Estilo em Cascata Linguagem de estilo responsável pela
-            estética de páginas HTML.
-          </p>
-          <button className="more">Saber mais</button>
-        </div>
-      </div>
-      {/*<!--FIm do card-->
-      <!--incicio do card-->*/}
-      <div className="card">
-        <img src="/images/js grey.jpg" alt="" />
-        <hr />
-        <div className="conteudo">
-          <h1
-            style={{
-              color: "rgb(214, 214, 43)",
-            }}
-          >
-            JavaScript
-          </h1>{" "}
-          <br />
-          <p>
-            Linguagem de programação de camada dinâmica usada para adicionar
-            interatividade num site.
-          </p>
-          <button
-            style={{
-              color: "rgb(214, 214, 43)",
-            }}
-            className="more"
-          >
-            Saber mais
-          </button>
-        </div>
-      </div>
-      {/*    <!--Fim do card-->*/}
-    </div>
 
-    <div className="percentagem">
-      <section className="stats">
-        <div className="stats-grid">
-          <div className="stat-item">
-            <h3>200+</h3>
-            <p>Empresas Parceiras</p>
+        <Carousel className="mx-20 w-[500px]">
+          <CarouselContent className=" flex gap-4 px-10 py-6">
+            {[1, 2, 3, 4, 5, 6].map((item, index) => {
+              return (
+                <CarouselItem key={index} className="basis-1/3">
+                  <TutorialCard
+                    title="HTML"
+                    href="/tutoriais"
+                    image="/images/tutoriais/html.png"
+                  />
+                </CarouselItem>
+              );
+            })}
+          </CarouselContent>
+          <CarouselPrevious />
+          <CarouselNext />
+        </Carousel>
+      </div>
+
+      <HomeSection
+        title="Mais Exercícios"
+        description="Várias versões evoluíram ao longo dos anos, não por acidente, 
+mas como resultado da prática contínua e da busca intencional por aprimoramento."
+      >
+        <div className="flex gap-4 flex-wrap items-center">
+          {[1, 2, 3, 4, 5, 6].map((item, index) => {
+            return (
+              <ExerciseCard
+                key={index}
+                title="HTML"
+                icon="/images/tutoriais/html.png"
+                href="/tutoriais"
+              />
+            );
+          })}
+        </div>
+      </HomeSection>
+      <HomeSection
+        title="Nossas conquistas"
+        description='Formamos novos talentos em programação web, conectando alunos ao mercado com projetos práticos e reais."'
+      >
+        <div className="flex gap-4 items-center justify-between">
+          <div className="grid grid-cols-2 gap-6">
+            <Conquista title="Tutoriais" value={10} icon={<BookOpen />} />
+            <Conquista title="Exercícios" value={200} icon={<Dumbbell />} />
+            <Conquista
+              title="Estudantes"
+              value={100}
+              icon={<GraduationCap />}
+            />
+            <Conquista title="Certificações" value={15} icon={<FileBadge />} />
           </div>
 
-          <div className="stat-item">
-            <h3>98%</h3>
-            <p>Satisfação dos Alunos</p>
-          </div>
-
-          <div className="stat-item">
-            <h3>300k</h3>
-            <p>Horas de Conteúdo</p>
-          </div>
+          <Image width={250} src={youngWomen} alt="" />
         </div>
-      </section>
-    </div>
+      </HomeSection>
 
-    <section className="allcoment">
-      <div className="allcomentcontrol">
-        <div className="allcomentdiv">
-          <p>
-            "Consegui meu primeiro emprego como programador graças a essa
-            plataforma!"
-          </p>
-          <h4>Bernabé Cristóvão</h4>
-        </div>
+      <HomeSection
+        title="Nossas testemunhos"
+        description="Veja o que os nossos alunos têm a dizer! Suas histórias refletem o impacto real da nossa plataforma"
+      >
+        <Carousel className="mx-20 ">
+          <CarouselContent className=" flex gap-4 px-10 py-6">
+            {[1, 2, 3, 4, 5, 6].map((item, index) => {
+              return (
+                <CarouselItem key={index} className="basis-1/2">
+                  <TestemunhoCard
+                    name="João Silva"
+                    position="Desenvolver Frontend"
+                    content="Comecei sem saber nada de programação. Com os cursos da Madaskills, aprendi HTML, CSS e já estou criando meus próprios sites. O conteúdo é direto ao ponto e os exercícios me ajudaram muito!"
+                  />
+                </CarouselItem>
+              );
+            })}
+          </CarouselContent>
+          <CarouselPrevious />
+          <CarouselNext />
+        </Carousel>
+      </HomeSection>
 
-        <div className="allcomentdiv">
-          <p>
-            "O suporte ao aluno é impressionante, e os projetos são muito
-            práticos me ajudaram muito."
-          </p>
-          <h4>Lucílio Evanilson</h4>
-        </div>
+      <div className="flex gap-4 px-10 py-10 bg-[#e9f3ff] items-center text-black justify-center">
+        <Image width={250} src={youngGroup} alt="" />
 
-        <div className="allcomentdiv">
-          <p>
-            "Melhor plataforma que já vi, me ajudou muito no desenvolvimento
-            do meu projeto escolar"
+        <div className="w-[300px]">
+          <p className="mb-2 font-bold">
+            Junte-se à <span className="text-primary">maior plataforma </span>
+            aprendizagem do mundo hoje mesmo
           </p>
-          <h4>Jairo Buto</h4>
+          <p className="text-sm mb-4">Comece a aprender</p>
+          <Link href="/">
+            <Button>Inscreve-se</Button>
+          </Link>
         </div>
       </div>
-    </section>
-    <div className="pergunta">
-      <h2>Perguntas Frequententes</h2>
-      <br />
-      <br />
-      <a href="index.html">Por que preciso aprender Programação Web?</a>
-      <hr />
-      <br />
-      <a href="#">Quanto tempo eu levaria para aprender a programar?</a>
-      <hr />
-      <br />
-      <a href="#">
-        Esta Plataforma me ajudaria mesmo a ter habilidades em Programação
-        Web?
-      </a>
-      <br />
-    </div>
-    {/*    <!--inicio do footer--> */}
-    <div className="footerdiv">
-      <footer>
-        <div className="inline">
-          <div className="block">
-            <img src="/images/madafoot.jpg" alt="" className="madas" />
-            <p>Construa o Manhã com Habilidades de Hoje!!!</p>
-          </div>
-          <div className="block">
-            <h1>Contactos</h1>
-            <a href="">Telefone: 935 55 500</a>
-            <a href="">Email: ninafaustino992@gmail.com</a>
-            <nav>
-              <a href="">
-                <img src="/images/face.webp" alt="" className="iconf" />
-              </a>
-              <a href="">
-                <img src="/images/whats.webp" alt="" className="iconf" />
-              </a>
-              <a href="">
-                <img src="/images/insta.webp" alt="" className="iconf" />
-              </a>
-              <a href="">
-                <img src="/images/youtube.png" alt="" className="iconf" />
-              </a>
-            </nav>
-          </div>
 
-          <div className="block">
-            <h1>Links rápidos</h1>
-            <a href="">Sobre nós</a>
-            <a href="biblioteca2.html">Cursos</a>
-            <a href="">Exercícios</a>
-          </div>
-          <div className="block">
-            <h1>Membro da plataforma</h1>
-            <a href="login.html">Fazer Login</a>
-            <a href="cadastro.html">Cadastrar</a>
-          </div>
-        </div>
-        <div>
-          <hr />
-          <p>
-            &copy;2025 Todos os Direitos Reservados. <span>MADASKILLS</span>
-          </p>
-        </div>
-      </footer>
-    </div>
+      <Footer />
     </div>
   );
 }
