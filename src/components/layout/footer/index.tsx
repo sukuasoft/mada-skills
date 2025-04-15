@@ -54,9 +54,9 @@ export default function Footer() {
         </div>
       </div>
 
-      <hr className="mt-4" />
+      <hr className="mt-4 opacity-15" />
       <p className="opacity-75 text-xs text-center mt-4 ">
-        Feito com ❤️ por Nina Faustino
+        Feito por Nina Faustino
       </p>
     </footer>
   );
