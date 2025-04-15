@@ -33,7 +33,7 @@ export default function Register (){
 
                     <div className='flex flex-col gap-2 mt-4'>
                         <Label>Senha</Label>
-                        <Input placeholder='Sua senha'/>
+                        <Input  type='password' placeholder='Sua senha'/>
                     </div>
 
 
