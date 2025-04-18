@@ -4,8 +4,11 @@ import stars from "@/assets/stars.png";
 import { Button } from "../ui/button";
 import { ArrowRight, Star } from "lucide-react";
 import Link from "next/link";
+import { useContent } from "@/providers/content-provider";
 
 export default function HomeHeader() {
+  const {modules} = useContent();
+
   return (
     <header className="h-screen w-full flex flex-col">
       <div
@@ -28,7 +31,7 @@ export default function HomeHeader() {
             Aprenda programação de forma fácil e divertida com nossos tutoriais
             e exercícios práticos.
           </p>
-          <Link href="/tutoriais">
+          <Link href={modules.length > 0 ? `/tutoriais/${modules[0].slug}`: '#'}>
             <Button>
               Comece agora
               <ArrowRight />

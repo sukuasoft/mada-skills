@@ -26,6 +26,9 @@ export default function Newsletter() {
 
     if (newsletterDoc) {
       toast.success("Inscrição realizada com sucesso!");
+        if (formRef.current){
+            formRef.current.reset();
+        }
       setFormData({
         email: "",
       });
@@ -46,12 +49,13 @@ export default function Newsletter() {
       }}
       className="text-sm w-[250px] ml-auto"
     >
-      <p className="font-bold">Newsletter</p>
-      <p className="opacity-75 text-xs mb-2">
+      <p className="font-bold mb-1">Newsletter</p>
+      <p className="opacity-75 text-xs mb-3">
         Receba dicas e conteúdos sobre programação web no seu e-mail. Faça parte
         da nossa comunidade!
       </p>
       <Input
+      required
         name="email"
         type="email"
         onChange={(ev) => {

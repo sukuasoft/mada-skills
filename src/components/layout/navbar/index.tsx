@@ -18,15 +18,33 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useContent } from "@/providers/content-provider";
 
 type NavbarProps = {
   currentPage?: string;
 };
 
-export default function Navbar({ currentPage }: NavbarProps) {
-  const [show, setShow] = useState(false);
+const navbarSections = [
+  {
+    title: "Tutoriais",
+    baseUrl: "/tutoriais",
+    page: "tutoriais",
+  },
+  {
+    title: "Exercícios",
+    baseUrl: "/exercicios",
+    page: "exercicios",
+  },
+  {
+    title: "Certificados",
+    baseUrl: "/certificados",
+    page: "certificados",
+  },
+];
 
+export default function Navbar({ currentPage }: NavbarProps) {
   const { user, loaded, logout } = useApp();
+  const {modules} = useContent();
   return (
     <div>
       <nav className="bg-white z-[10] fixed top-0 left-0  px-10 py-4 w-full flex justify-between items-center shadow-xs">
@@ -38,44 +56,43 @@ export default function Navbar({ currentPage }: NavbarProps) {
           <NavbarLink href="/" current={currentPage == "home"}>
             Início
           </NavbarLink>
-          <button
-            onClick={() => {
-              setShow(!show);
-            }}
-            className={`${
-              currentPage == "tutoriais"
-                ? "text-primary"
-                : "text-zinc-600 hover:text-zinc-800"
-            } flex gap-1 items-center`}
-          >
-            Tutoriais
-          </button>
 
-          <button
-            onClick={() => {
-              setShow(!show);
-            }}
-            className={`${
-              currentPage == "exercicios"
-                ? "text-primary"
-                : "text-zinc-600 hover:text-zinc-800"
-            } flex gap-1 items-center`}
-          >
-            Exercícios
-          </button>
-
-          <button
-            onClick={() => {
-              setShow(!show);
-            }}
-            className={`${
-              currentPage == "certificados"
-                ? "text-primary"
-                : "text-zinc-600 hover:text-zinc-800"
-            } flex gap-1 items-center`}
-          >
-            Certificados
-          </button>
+          {navbarSections.map((section) => {
+            return (
+              <DropdownMenu key={section.page}>
+                <DropdownMenuTrigger className=" outline-none ring-0 border-none">
+                  <div
+                    key={section.page}
+                    className={`${
+                      currentPage == section.page
+                        ? "text-primary"
+                        : "text-zinc-600 hover:text-zinc-800"
+                    } flex gap-1 items-center`}
+                  >
+                    {section.title}
+                  </div>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent
+                  className="border-none"
+                  side="bottom"
+                  align="center"
+                >
+                  <DropdownMenuLabel className="  font-normal text-zinc-400">{section.title}</DropdownMenuLabel>
+                  <hr className="border-[#eee]" />
+                  <div className="flex flex-col gap-2 text-xs px-2 py-2">
+                    {
+                      modules.map((module)=>{
+                        return <Link className="hover:opacity-75" href={`${section.baseUrl}/${module.slug}`} key={module.id}>
+                        {module.title}
+                      </Link>
+                      })
+                    }
+               
+                  </div>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            );
+          })}
         </div>
 
         {loaded ? (
@@ -100,12 +117,21 @@ export default function Navbar({ currentPage }: NavbarProps) {
                 side="bottom"
                 align="end"
               >
-                <DropdownMenuLabel className="text-xs">{getShortName(user.name)}</DropdownMenuLabel>
+                <DropdownMenuLabel className="text-xs font-bold">
+                  {getShortName(user.name)}
+                </DropdownMenuLabel>
                 <hr className="border-[#eee] mb-2" />
                 <div className="flex flex-col gap-2 text-xs px-2">
-                  <Link className="hover:opacity-75" href="/dashboard">Dashboard</Link>
-                  <Link  className="hover:opacity-75"  href="/perfil">Perfil</Link>
-                  <button className="hover:opacity-75 cursor-pointer text-red-500 block w-fit"  onClick={logout} >
+                  <Link className="hover:opacity-75" href="/dashboard">
+                    Dashboard
+                  </Link>
+                  <Link className="hover:opacity-75" href="/perfil">
+                    Perfil
+                  </Link>
+                  <button
+                    className="hover:opacity-75 cursor-pointer text-red-500 block w-fit"
+                    onClick={logout}
+                  >
                     Sair
                   </button>
                 </div>
@@ -129,7 +155,7 @@ export default function Navbar({ currentPage }: NavbarProps) {
         )}
       </nav>
 
-      {show && (
+      {/*show && (
         <div
           className="fixed top-0 left-0 h-screen w-full flex pt-[70px] flex-col z-[2]
     "
@@ -154,7 +180,7 @@ export default function Navbar({ currentPage }: NavbarProps) {
             </div>
           </div>
         </div>
-      )}
+      )*/}
     </div>
   );
 }

@@ -1,3 +1,4 @@
+'use client'
 import ExerciseCard from "@/components/features/exercise-card";
 import TutorialCard from "@/components/features/tutorial-card";
 import HomeHeader from "@/components/layout/home-header";
@@ -22,8 +23,10 @@ import { Button } from "@/components/ui/button";
 
 import Link from "next/link";
 import Footer from "@/components/layout/footer";
+import { useContent } from "@/providers/content-provider";
 
 export default function Home() {
+  const {testimonies, modules}=useContent();
   return (
     <div>
       <Navbar currentPage="home" />
@@ -38,13 +41,13 @@ export default function Home() {
 
         <Carousel className="mx-20 w-[500px]">
           <CarouselContent className=" flex gap-4 px-10 py-6">
-            {[1, 2, 3, 4, 5, 6].map((item, index) => {
+            {modules.map((module) => {
               return (
-                <CarouselItem key={index} className="basis-1/3">
+                <CarouselItem key={module.id} className="basis-1/3">
                   <TutorialCard
-                    title="HTML"
-                    href="/tutoriais"
-                    image="/images/tutoriais/html.png"
+                    title={module.title}
+                    href={`/tutoriais/${module.slug}`}
+                    image={module.icon}
                   />
                 </CarouselItem>
               );
@@ -61,13 +64,13 @@ export default function Home() {
 mas como resultado da prática contínua e da busca intencional por aprimoramento."
       >
         <div className="flex gap-4 flex-wrap items-center">
-          {[1, 2, 3, 4, 5, 6].map((item, index) => {
+          {modules.map((module) => {
             return (
               <ExerciseCard
-                key={index}
-                title="HTML"
-                icon="/images/tutoriais/html.png"
-                href="/tutoriais"
+                key={module.id}
+                title={module.title}
+                icon={module.icon}
+                href={`/exercicios/${module.slug}`}
               />
             );
           })}
@@ -79,14 +82,14 @@ mas como resultado da prática contínua e da busca intencional por aprimorament
       >
         <div className="flex gap-4 items-center justify-between">
           <div className="grid grid-cols-2 gap-6">
-            <Conquista title="Tutoriais" value={10} icon={<BookOpen />} />
-            <Conquista title="Exercícios" value={200} icon={<Dumbbell />} />
+            <Conquista title="Tutoriais" value={30} icon={<BookOpen />} />
+            <Conquista title="Exercícios" value={50} icon={<Dumbbell />} />
             <Conquista
               title="Estudantes"
-              value={100}
+              value={25}
               icon={<GraduationCap />}
             />
-            <Conquista title="Certificações" value={15} icon={<FileBadge />} />
+            <Conquista title="Certificações" value={10} icon={<FileBadge />} />
           </div>
 
           <Image width={250} src={youngWomen} alt="" />
@@ -98,14 +101,14 @@ mas como resultado da prática contínua e da busca intencional por aprimorament
         description="Veja o que os nossos alunos têm a dizer! Suas histórias refletem o impacto real da nossa plataforma"
       >
         <Carousel className="mx-20 ">
-          <CarouselContent className=" flex gap-4 px-10 py-6">
-            {[1, 2, 3, 4, 5, 6].map((item, index) => {
+          <CarouselContent className=" flex gap-4 px-10 py-6 ">
+            {testimonies.map((item, index) => {
               return (
                 <CarouselItem key={index} className="basis-1/2">
                   <TestemunhoCard
-                    name="João Silva"
-                    position="Desenvolver Frontend"
-                    content="Comecei sem saber nada de programação. Com os cursos da Madaskills, aprendi HTML, CSS e já estou criando meus próprios sites. O conteúdo é direto ao ponto e os exercícios me ajudaram muito!"
+                    name={item.name}
+                    position={item.position}
+                    content={item.content}
                   />
                 </CarouselItem>
               );

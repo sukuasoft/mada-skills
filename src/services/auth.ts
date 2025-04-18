@@ -1,4 +1,4 @@
-import { User, UserUpdates } from "@/types/user";
+import { User, UserUpdates } from "@/models/user";
 import { auth } from "./firebase";
 import {
   GoogleAuthProvider,

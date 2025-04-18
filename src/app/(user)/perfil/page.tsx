@@ -13,7 +13,7 @@ import githubIcon from "@/assets/github.png";
 import Image from "next/image";
 import { Upload } from "lucide-react";
 import { uploadFile } from "@/services/storage";
-import { UserUpdates } from "@/types/user";
+import { UserUpdates } from "@/models/user";
 import toast from "react-hot-toast";
 
 type DadosFormData = {
