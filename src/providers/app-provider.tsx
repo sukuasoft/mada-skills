@@ -1,7 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useEffect, useRef, useState } from "react";
-import { User, UserUpdates } from "../types/user";
+import { User, UserUpdates } from "../models/user";
 
 import {
   loginWithGithub,
