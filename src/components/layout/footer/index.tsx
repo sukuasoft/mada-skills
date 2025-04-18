@@ -1,10 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import icon from "@/assets/icon.png";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+
 
 import { Facebook, Instagram } from "lucide-react";
+import Newsletter from "./newsletter";
 
 export default function Footer() {
   return (
@@ -46,12 +46,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="text-sm w-[200px] ml-auto">
-            <p className="font-bold">Newsletter</p>
-            <p className="opacity-75 text-xs mb-2">Receba dicas e conteúdos sobre programação web no seu e-mail. Faça parte da nossa comunidade!</p>
-            <Input placeholder="Email"  className=" placeholder:text-[#b3b3b372] border-none mb-4 bg-[#eeeeee23]"/>
-            <Button>Inscrever-se agora</Button>
-        </div>
+       <Newsletter />
       </div>
 
       <hr className="mt-4 opacity-15" />

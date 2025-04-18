@@ -125,7 +125,7 @@ mas como resultado da prática contínua e da busca intencional por aprimorament
             aprendizagem do mundo hoje mesmo
           </p>
           <p className="text-sm mb-4">Comece a aprender</p>
-          <Link href="/">
+          <Link href="/registro">
             <Button>Inscreve-se</Button>
           </Link>
         </div>

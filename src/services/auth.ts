@@ -1,8 +1,11 @@
-import { User } from "@/types/user";
+import { User, UserUpdates } from "@/types/user";
 import { auth } from "./firebase";
 import {
   GoogleAuthProvider,
   GithubAuthProvider,
+  EmailAuthProvider,
+  reauthenticateWithCredential,
+  updatePassword,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signInWithPopup,
@@ -11,6 +14,7 @@ import {
   updateProfile,
   sendPasswordResetEmail,
   AuthError,
+  User as FirebaseUser
 } from "firebase/auth";
 
 const googleProvider = new GoogleAuthProvider();
@@ -48,6 +52,7 @@ export async function login(email: string, password: string): Promise<User> {
       name: userCredential.user.displayName || "",
       email: userCredential.user.email || "",
       photoUrl: userCredential.user.photoURL,
+      provider: userCredential.user.providerData[0].providerId,
     };
   } catch (ex) {
     const message = handleFirebaseError(ex as AuthError);
@@ -77,6 +82,7 @@ export async function register(
       name: userCredential.user.displayName || "",
       email: userCredential.user.email || "",
       photoUrl: userCredential.user.photoURL,
+      provider: userCredential.user.providerData[0].providerId,
     };
   } catch (ex) {
     const message = handleFirebaseError(ex as AuthError);
@@ -96,6 +102,8 @@ export async function loginWithGoogle(): Promise<User> {
       name: userCredential.user.displayName || "",
       email: userCredential.user.email || "",
       photoUrl: userCredential.user.photoURL,
+      provider: userCredential.user.providerData[0].providerId,
+   
     };
   } catch (ex) {
     const message = handleFirebaseError(ex as AuthError);
@@ -115,6 +123,7 @@ export async function loginWithGithub(): Promise<User> {
       name: userCredential.user.displayName || "",
       email: userCredential.user.email || "",
       photoUrl: userCredential.user.photoURL,
+      provider: userCredential.user.providerData[0].providerId,
     };
   } catch (ex) {
     const message = handleFirebaseError(ex as AuthError);
@@ -143,6 +152,7 @@ export async function getCurrentUser(): Promise<User | null> {
             name: user.displayName || "",
             email: user.email || "",
             photoUrl: user.photoURL,
+            provider: user.providerData[0].providerId,
           });
         }
         resolve(null);
@@ -155,6 +165,22 @@ export async function getCurrentUser(): Promise<User | null> {
   return null;
 }
 
+
+export async function getCurrentFirebaseUser(): Promise<FirebaseUser | null> {
+    try {
+      return await new Promise((resolve) => {
+        auth.onAuthStateChanged((user) => {
+         resolve(user)
+        });
+      });
+    } catch (ex) {
+      console.log(handleFirebaseError(ex as AuthError));
+    }
+  
+    return null;
+  }
+
+  
 export async function forgotPassword(email: string): Promise<void> {
   try {
     await sendPasswordResetEmail(auth, email);
@@ -162,5 +188,40 @@ export async function forgotPassword(email: string): Promise<void> {
     const message = handleFirebaseError(ex as AuthError);
     console.log(message);
     throw new Error(message);
+  }
+}
+
+export async function changePassword(
+  currentPassword: string,
+  newPassword: string
+): Promise<void> {
+  try {
+    const user = auth.currentUser;
+    if (user) {
+      const credential = EmailAuthProvider.credential(user.email || "", currentPassword);
+      await reauthenticateWithCredential(user, credential);
+      await updatePassword(user, newPassword);
+    }
+  } catch (ex) {
+    const message = handleFirebaseError(ex as AuthError);
+    console.log(message);
+    throw new Error(message);
+  }
+}
+
+
+
+export async function updateCurrentUser(updates:UserUpdates):Promise<void>{
+  try{
+    const user = await getCurrentFirebaseUser();
+    if(user){
+      await updateProfile(user, {
+        displayName:updates.name,
+        photoURL:updates.photoUrl
+      });
+    }
+  }
+  catch(ex){
+    console.log(handleFirebaseError(ex as AuthError));
   }
 }

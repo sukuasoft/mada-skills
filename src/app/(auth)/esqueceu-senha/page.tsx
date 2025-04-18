@@ -11,7 +11,7 @@ import { useEffect, useRef, useState } from "react";
 import { useApp } from "@/providers/app-provider";
 import {motion, AnimatePresence} from 'motion/react';
 import { Check, Loader2 } from "lucide-react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 type FormData = {
   email: string;

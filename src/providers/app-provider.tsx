@@ -1,7 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useEffect, useRef, useState } from "react";
-import { User } from "../types/user";
+import { User, UserUpdates } from "../types/user";
 
 import {
   loginWithGithub,
@@ -10,7 +10,9 @@ import {
   register,
   logout,
   getCurrentUser,
+  updateCurrentUser,
   forgotPassword,
+  changePassword,
 } from "@/services/auth";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
@@ -18,6 +20,8 @@ import { useRouter } from "next/navigation";
 type AppContextType = {
   user: User | null;
   setUser: (user: User | null) => void;
+  updateUser(updates: UserUpdates): Promise<boolean>;
+  changePasswordUser: (currentPassword: string, newPassword: string) => Promise<boolean>;
   loginWithGoogle: () => Promise<void>;
   loginWithGithub: () => Promise<void>;
   login: (email: string, password: string) => Promise<void>;
@@ -137,6 +141,34 @@ export function AppProvider({ children }: AppProviderProps) {
     return false;
   }
 
+  async function updateUser (updates:UserUpdates):Promise<boolean>{
+    try {
+        await updateCurrentUser(updates);
+        setUser({
+            ...user, 
+            ...updates
+        } as User);
+   
+        toast.success("Dados atualizados com sucesso");
+        return true;
+      } catch (error) {
+        toast.error((error as Error).message);
+      }
+      return false;
+
+  }
+
+  async function changePasswordUser (currentPassword:string, newPassword:string):Promise<boolean>{
+    try {
+        await changePassword(currentPassword, newPassword);
+      toast.success("Senha alterada com sucesso");
+      return true;
+    } catch (error) {
+      toast.error((error as Error).message);
+    }
+    return false;
+  }
+
   return (
     <AppContext.Provider
       value={{
@@ -149,7 +181,9 @@ export function AppProvider({ children }: AppProviderProps) {
         register: _register,
         forgotPassword: _forgotPassword,
         loaded, 
-        loading, setLoading
+        loading, setLoading,
+        updateUser,
+        changePasswordUser
       }}
     >
       {children}
