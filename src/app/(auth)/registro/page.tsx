@@ -1,4 +1,5 @@
-'use client'
+"use client";
+
 import Image from "next/image";
 import youngWomen from "@/assets/young-women.png";
 import { Input } from "@/components/ui/input";
@@ -10,24 +11,25 @@ import githubIcon from "@/assets/github.png";
 import icon from "@/assets/icon.png";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { useApp } from "@/providers/app-provider";
-
 import { Loader2 } from "lucide-react";
-import { motion, AnimatePresence } from "motion/react";
+import {AnimatePresence, motion } from 'motion/react';
+import { useApp } from "@/providers/app-provider";
 import { useRouter } from "next/navigation";
 
+
 type FormData = {
+  name: string;
   email: string;
   password: string;
 };
 
-export default function Login() {
+export default function Register() {
   const formRef = useRef<HTMLFormElement | null>(null);
   const [isFetch, setIsFetch] = useState(false);
 
-  const { login, loginWithGoogle, loginWithGithub ,user, loaded, setLoading} = useApp();
-  
-  const router= useRouter();
+    const {register, loginWithGoogle, loginWithGithub, user, loaded,setLoading} = useApp();
+      const router= useRouter();
+
 
   useEffect(()=>{
     if(!loaded) return;
@@ -40,17 +42,18 @@ export default function Login() {
     }
 
   }, [user, loaded]);
-  
 
   const [formData, setFormData] = useState<FormData>({
+    name: "",
     email: "",
     password: "",
   });
 
+   
+  
 
-
-  async function handleAction(action: () => Promise<void>) {
-    if (isFetch) return;
+  async function handleAction(action:()=>Promise<void>) {
+    if(isFetch) return;
     setIsFetch(true);
     await action();
 
@@ -74,28 +77,28 @@ export default function Login() {
         duration: 0.5,
         ease: "easeInOut",
     }}
-    key="login"
-    className="px-10 py-10 min-h-screen flex flex-col">
+    key="register"
+     className="px-10 py-10 min-h-screen flex flex-col">
       <Link href="/" className="w-fit">
         <Image src={icon} width={100} alt="" />
       </Link>
 
       <div className="flex-1  flex gap-6 items-center justify-center">
-        <form ref={formRef}
+        <form
+          ref={formRef}
           onSubmit={(ev) => {
             ev.stopPropagation();
             if (formRef.current && formRef.current.reportValidity()) {
               ev.preventDefault();
                 handleAction(async ()=>{
-                  await  login(formData.email, formData.password);
+                  await  register(formData.email, formData.password, formData.name);
                 
                 })
             }
           }}
           className={`w-[300px] ${isFetch ? " opacity-50 relative pointer-events-none" : ""}`}
         >
-
-        {isFetch && (
+      {isFetch && (
             <motion.div 
             initial={{
                 rotate: 0,
@@ -110,57 +113,65 @@ export default function Login() {
               <Loader2    size={30}/>
               </motion.div>
       )}
-
-          <p className="font-bold text-2xl text-center">
-            Seja bem vindo de volta
-          </p>
+          <p className="font-bold text-2xl text-center">Crie uma conta</p>
 
           <div className="flex flex-col gap-2 mt-6">
+            <Label>Nome Completo</Label>
+            <Input
+              name="name"
+              onChange={(ev) => {
+                setFormData({
+                  ...formData,
+                  name: ev.target.value,
+                });
+              }}
+              required
+              placeholder="Seu nome completo"
+            />
+          </div>
+
+          <div className="flex flex-col gap-2 mt-4">
             <Label>E-mail</Label>
             <Input
-            required 
-          onChange={(ev) => {
-            setFormData({
-              ...formData,
-              email: ev.target.value,
-            });
-          }}
-            type="email" name="email" placeholder="Seu email" />
+              onChange={(ev) => {
+                setFormData({
+                  ...formData,
+                  email: ev.target.value,
+                });
+              }}
+              name="email"
+              required
+              placeholder="Seu email"
+            />
           </div>
 
           <div className="flex flex-col gap-2 mt-4">
             <Label>Senha</Label>
-            <Input required
-             minLength={6}
-             maxLength={20}
-           onChange={(ev) => {
-             setFormData({
-               ...formData,
-               password: ev.target.value,
-             });
-           }}
-            name="password" type="password" placeholder="Sua senha" />
-          </div>
-
-          <Link href="/esqueceu-senha">
-            <Button
-              type="button"
-              variant={"link"}
-              className="mt-2 ml-auto w-fit block"
-            >
-              Esqueci a senha
-            </Button>
-          </Link>
-
-          <div className="flex flex-col gap-2 mt-4">
-            <Button>Entrar</Button>
-            <Button
-              type="button"
-              onClick={() => {
-                handleAction(async () => {
-                  await loginWithGithub();
+            <Input
+            minLength={6}
+                maxLength={20}
+              onChange={(ev) => {
+                setFormData({
+                  ...formData,
+                  password: ev.target.value,
                 });
               }}
+              name="password"
+              required
+              type="password"
+              placeholder="Sua senha"
+            />
+          </div>
+
+          <div className="flex flex-col gap-2 mt-4">
+            <Button>Criar conta</Button>
+            <Button
+            type="button"
+            onClick={()=>{
+                handleAction(async ()=>{
+                    await loginWithGithub();
+                })
+            }}
               variant={"outline"}
               className="border-black bg-black
                     hover:text-zinc-100 text-white hover:bg-[#202020]"
@@ -169,12 +180,12 @@ export default function Login() {
               Continuar com Github
             </Button>
             <Button
-              type="button"
-              onClick={() => {
-                handleAction(async () => {
-                  await loginWithGoogle();
-                });
-              }}
+            type="button"
+            onClick={()=>{
+                handleAction(async ()=>{
+                    await loginWithGoogle();
+                })
+            }}
               variant={"outline"}
               className="border-zinc-300 hover:bg-zinc-100 hover:text-black"
             >
@@ -183,9 +194,9 @@ export default function Login() {
             </Button>
           </div>
           <p className="text-zinc-500 text-sm mt-6 text-center">
-            Ainda não tem conta?{" "}
-            <Link href="/registro" className="text-primary">
-              Crie
+            Ja tens conta?{" "}
+            <Link href="/login" className="text-primary">
+              Entrar
             </Link>
           </p>
         </form>
