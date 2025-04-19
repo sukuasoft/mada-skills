@@ -2,6 +2,8 @@
 
 import { Jimp, loadFont } from "jimp";
 import { SANS_64_BLACK } from "jimp/fonts";
+import path from "path";
+import fs from "fs";
 
 import { generateSlug } from "@/lib/utils";
 
@@ -15,6 +17,10 @@ export async function generateCertificateAction(
   userName: string,
   score: number
 ): Promise<ImageResult> {
+  const directoryPath = path.join(process.cwd());
+const files = fs.readdirSync(directoryPath);
+
+console.log(files);
   const image = await Jimp.read(process.cwd() + "/src/assets/cert.png");
 
   const font = await loadFont(SANS_64_BLACK);
