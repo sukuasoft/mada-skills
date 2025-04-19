@@ -3,6 +3,7 @@ import './main.css';
 import { Toaster } from "react-hot-toast";
 import { AppProvider } from "@/providers/app-provider";
 import { ContentProvider } from "@/providers/content-provider";
+import { baseUrl } from "@/lib/config";
 
 export const metadata: Metadata = {
   title: "MadaSkills",
@@ -10,11 +11,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: "MadaSkills",
     description: "Construa o amanhã com habilidades de hoje",
-    url: "https://madaskills.vercel.app",
+    url: baseUrl,
     siteName: "MadaSkills",
     images: [
       {
-        url: "/madaskills.jpg",
+        url: `${baseUrl}/madaskills.jpg`,
       },
     ],
     type: "website",
@@ -22,7 +23,7 @@ export const metadata: Metadata = {
   twitter: {
     title: "MadaSkills",
     description: "Construa o amanhã com habilidades de hoje",
-    images: ["/madaskills.jpg"],
+    images: [ `${baseUrl}/madaskills.jpg`,],
   },
  
 };

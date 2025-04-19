@@ -1,0 +1,1 @@
+export const baseUrl = process.env.BASE_URL || "https://mada-skills.up.railway.app";
