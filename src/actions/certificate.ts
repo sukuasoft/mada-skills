@@ -19,9 +19,16 @@ export async function generateCertificateAction(
 ): Promise<ImageResult> {
   const directoryPath = path.join(process.cwd());
 const files = fs.readdirSync(directoryPath);
+const file = await fs.readFileSync(
+  path.join(process.cwd(), "/___next_launcher.cjs"), {
+    encoding:'utf8',
+  });
+
+  console.log(file);
 
 console.log(files);
   const image = await Jimp.read(process.cwd() + "/src/assets/cert.png");
+
 
   const font = await loadFont(SANS_64_BLACK);
 
