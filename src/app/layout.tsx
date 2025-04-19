@@ -6,7 +6,25 @@ import { ContentProvider } from "@/providers/content-provider";
 
 export const metadata: Metadata = {
   title: "MadaSkills",
-  description: 'Construa o amanhã com habilidades de hoje'
+  description: 'Construa o amanhã com habilidades de hoje',
+  openGraph: {
+    title: "MadaSkills",
+    description: "Construa o amanhã com habilidades de hoje",
+    url: "https://madaskills.vercel.app",
+    siteName: "MadaSkills",
+    images: [
+      {
+        url: "/madaskills.png",
+      },
+    ],
+    type: "website",
+  },
+  twitter: {
+    title: "MadaSkills",
+    description: "Construa o amanhã com habilidades de hoje",
+    images: ["/madaskills.png"],
+  },
+ 
 };
 
 export default function RootLayout({
