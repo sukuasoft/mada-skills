@@ -3,8 +3,8 @@
 import { Jimp, loadFont } from "jimp";
 import { SANS_64_BLACK } from "jimp/fonts";
 import { generateSlug } from "@/lib/utils";
+import { baseUrl } from "@/lib/config";
 
-const baseUrl = process.env.BASE_URL || "https://mada-skills.up.railway.app";
 
 type ImageResult = {
   content: string;
