@@ -2,10 +2,9 @@
 
 import { Jimp, loadFont } from "jimp";
 import { SANS_64_BLACK } from "jimp/fonts";
-import path from "path";
-import fs from "fs";
-
 import { generateSlug } from "@/lib/utils";
+
+const baseUrl = process.env.BASE_URL || "https://mada-skills.vercel.app";
 
 type ImageResult = {
   content: string;
@@ -17,17 +16,10 @@ export async function generateCertificateAction(
   userName: string,
   score: number
 ): Promise<ImageResult> {
-  const directoryPath = path.join(process.cwd());
-const files = fs.readdirSync(directoryPath);
-const file = await fs.readFileSync(
-  path.join(process.cwd(), "/___next_launcher.cjs"), {
-    encoding:'utf8',
-  });
 
-  console.log(file);
+  const imageFetched = await (await fetch(`${baseUrl}/cert-base.png`)).arrayBuffer();
 
-console.log(files);
-  const image = await Jimp.read(process.cwd() + "/src/assets/cert.png");
+  const image = await Jimp.read(imageFetched);
 
 
   const font = await loadFont(SANS_64_BLACK);
