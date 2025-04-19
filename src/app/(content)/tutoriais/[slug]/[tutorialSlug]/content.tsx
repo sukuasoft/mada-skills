@@ -38,7 +38,6 @@ export default function TutorialContent({ slug, tutorialSlug }: TutorialContentP
       });
 
       const _tutorial = _tutoriais.find((tutorial) => tutorial.slug == tutorialSlug);
-      console.log(tutorialSlug);
       if (_tutorial) {
         const _tutorialDetails = await getTutorialBySlug(_tutorial.slug);
         setTutorial(_tutorialDetails);

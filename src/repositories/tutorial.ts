@@ -27,7 +27,6 @@ export async function getTutorialBySlug (slug:string):Promise<Tutorial | null>{
   const entries =  await getEntries('tutorial', 0, 'fields.title,fields.slug,fields.order,fields.content,fields.module,sys.id', 
   `fields.slug=${slug}`,
   );
-  console.log(entries);
 
   if(entries && entries.items.length > 0){
     const item = entries.items[0];

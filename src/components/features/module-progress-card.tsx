@@ -9,6 +9,8 @@ type ModuleProgresCardProps = {
   module:string;
 };
 
+const scoreApproved= 70;
+
 export default function ModuleProgresCard({
   title,
   icon,
@@ -29,17 +31,19 @@ export default function ModuleProgresCard({
         <h2>{title}</h2>
 
         <div className="ml-auto flex gap-2 items-center">
-        <p className={`${progress == undefined ? "text-zinc-500" : "text-green-500"} text-xs`}>{
+        <p className={`${progress == undefined ? "text-zinc-500" : (
+          progress >= scoreApproved ? "text-green-500" : "text-red-500"
+        )} text-xs`}>{
             progress== undefined ? "Não iniciado" : `${progress}%`
             }</p>
             {
-                progress != 100 &&  <div className="group-hover:bg-primary px-1 py-1 rounded-md text-primary group-hover:text-white duration-200">
+                (progress == undefined || progress < scoreApproved) &&  <div className="group-hover:bg-primary px-1 py-1 rounded-md text-primary group-hover:text-white duration-200">
                 <ArrowUpRight size={18} />
               </div>
             }
         </div>
       </Link>
-     {progress == 100 &&  <Button variant={"link"}>Baixar certificado</Button>}
+     {(progress && progress >= scoreApproved) &&  <Button variant={"link"}>Baixar certificado</Button>}
     </div>
   );
 }

@@ -16,6 +16,7 @@ import {
   AuthError,
   User as FirebaseUser
 } from "firebase/auth";
+import { getUserData } from "@/repositories/user-data";
 
 const googleProvider = new GoogleAuthProvider();
 const githubProvider = new GithubAuthProvider();
@@ -47,12 +48,16 @@ export async function login(email: string, password: string): Promise<User> {
       email,
       password
     );
+
+    const userData =  await getUserData(userCredential.user.uid);
+
     return {
       id: userCredential.user.uid,
       name: userCredential.user.displayName || "",
       email: userCredential.user.email || "",
       photoUrl: userCredential.user.photoURL,
       provider: userCredential.user.providerData[0].providerId,
+      modulesCompleted:userData.modulesCompleted
     };
   } catch (ex) {
     const message = handleFirebaseError(ex as AuthError);
@@ -77,12 +82,15 @@ export async function register(
       displayName: name,
     });
 
+    const userData =  await getUserData(userCredential.user.uid);
+
     return {
       id: userCredential.user.uid,
       name: userCredential.user.displayName || "",
       email: userCredential.user.email || "",
       photoUrl: userCredential.user.photoURL,
       provider: userCredential.user.providerData[0].providerId,
+      ...userData
     };
   } catch (ex) {
     const message = handleFirebaseError(ex as AuthError);
@@ -97,12 +105,16 @@ export async function loginWithGoogle(): Promise<User> {
       auth,
       googleProvider
     );
+
+    const userData =  await getUserData(userCredential.user.uid);
+
     return {
       id: userCredential.user.uid,
       name: userCredential.user.displayName || "",
       email: userCredential.user.email || "",
       photoUrl: userCredential.user.photoURL,
       provider: userCredential.user.providerData[0].providerId,
+      ...userData
    
     };
   } catch (ex) {
@@ -118,12 +130,16 @@ export async function loginWithGithub(): Promise<User> {
       auth,
       githubProvider
     );
+    const userData =  await getUserData(userCredential.user.uid);
+
+
     return {
       id: userCredential.user.uid,
       name: userCredential.user.displayName || "",
       email: userCredential.user.email || "",
       photoUrl: userCredential.user.photoURL,
       provider: userCredential.user.providerData[0].providerId,
+      ...userData
     };
   } catch (ex) {
     const message = handleFirebaseError(ex as AuthError);
@@ -145,14 +161,17 @@ export async function logout(): Promise<void> {
 export async function getCurrentUser(): Promise<User | null> {
   try {
     return await new Promise((resolve) => {
-      auth.onAuthStateChanged((user) => {
+      auth.onAuthStateChanged(async (user) => {
         if (user) {
+         const userData =  await getUserData(user.uid);
+
           resolve({
             id: user.uid,
             name: user.displayName || "",
             email: user.email || "",
             photoUrl: user.photoURL,
             provider: user.providerData[0].providerId,
+            ...userData
           });
         }
         resolve(null);

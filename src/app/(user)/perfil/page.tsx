@@ -15,6 +15,7 @@ import { Upload } from "lucide-react";
 import { uploadFile } from "@/services/storage";
 import { UserUpdates } from "@/models/user";
 import toast from "react-hot-toast";
+import { getInitialsName } from "@/lib/utils";
 
 type DadosFormData = {
   image?: File;
@@ -24,21 +25,21 @@ type DadosFormData = {
 type ChangePasswordFormData = {
   currentPassword: string;
   newPassword: string;
-}
+};
 export default function Profile() {
-  const { loaded, user, setLoading, updateUser , changePasswordUser} = useApp();
+  const { loaded, user, setLoading, updateUser, changePasswordUser } = useApp();
 
   const [dadosFormData, setDadosFormData] = useState<DadosFormData>({});
   const [dadosIsFetch, setDadosIsFetch] = useState(false);
   const dadosFormRef = useRef<HTMLFormElement | null>(null);
 
-  const [changePasswordFormData, setChangePasswordFormData] = useState<ChangePasswordFormData>({
-    currentPassword: "", 
-    newPassword: ""
-  });
+  const [changePasswordFormData, setChangePasswordFormData] =
+    useState<ChangePasswordFormData>({
+      currentPassword: "",
+      newPassword: "",
+    });
   const [changePasswordIsFetch, setChangePasswordIsFetch] = useState(false);
   const changePasswordFormRef = useRef<HTMLFormElement | null>(null);
-
 
   async function updateDataUser() {
     if (dadosIsFetch) return;
@@ -58,7 +59,7 @@ export default function Profile() {
       userUpdates.name = dadosFormData.name;
     }
     if (await updateUser(userUpdates)) {
-      if(dadosFormRef.current){
+      if (dadosFormRef.current) {
         dadosFormRef.current.reset();
       }
       setDadosFormData({
@@ -70,23 +71,31 @@ export default function Profile() {
     setDadosIsFetch(false);
   }
 
+  async function changePassword() {
+    if (
+      changePasswordIsFetch ||
+      !(
+        changePasswordFormRef.current &&
+        changePasswordFormRef.current.reportValidity()
+      )
+    )
+      return;
 
-  async function changePassword(){
-    if(changePasswordIsFetch || !(changePasswordFormRef.current && changePasswordFormRef.current.reportValidity())) return;
-
-    
     setChangePasswordIsFetch(true);
-    if(await changePasswordUser(changePasswordFormData.currentPassword,
-      changePasswordFormData.newPassword)){
-        changePasswordFormRef.current.reset();
-        setChangePasswordFormData({ 
-          currentPassword: "",
-          newPassword: ""
-        })
-      }
+    if (
+      await changePasswordUser(
+        changePasswordFormData.currentPassword,
+        changePasswordFormData.newPassword
+      )
+    ) {
+      changePasswordFormRef.current.reset();
+      setChangePasswordFormData({
+        currentPassword: "",
+        newPassword: "",
+      });
+    }
 
     setChangePasswordIsFetch(false);
-
   }
 
   const imageUser = useMemo(() => {
@@ -111,8 +120,6 @@ export default function Profile() {
     }
   }, [user, loaded]);
 
-
-
   return (
     <div>
       <Navbar />
@@ -125,10 +132,12 @@ export default function Profile() {
             <p className="mb-6 text-zinc-400 text-sm">{user.email}</p>
 
             <h2 className="font-bold mb-2">Dados</h2>
-            <form ref={dadosFormRef} className="pb-4 border-[#eee] border-solid border-b">
+            <form
+              ref={dadosFormRef}
+              className="pb-4 border-[#eee] border-solid border-b"
+            >
               <div className="flex items-center gap-2 mb-4">
                 <input
-                
                   onChange={(ev) => {
                     const file = (ev.target as HTMLInputElement).files?.[0];
                     if (file) {
@@ -143,13 +152,23 @@ export default function Profile() {
                   type="file"
                   className="hidden"
                 />
-                <img
-                  src={imageUser}
-                  className={`rounded-full ${!imageUser && "bg-zinc-300"}`}
-                  width={30}
-                  height={30}
-                  alt=""
-                />
+                {imageUser ? (
+                  <img
+                    src={imageUser}
+                    className={`rounded-full overflow-hidden`}
+                    width={30}
+                    height={30}
+                    alt=""
+                  />
+                ) : (
+                  <div
+                    className="bg-[#AAA] w-[30px] h-[30px] flex justify-center items-center rounded-full overflow-hidden
+                              text-white"
+                  >
+                    {getInitialsName(user.name)}
+                  </div>
+                )}
+
                 <label
                   htmlFor="file-image"
                   className="border border-[#eee] hover:bg-zinc-50 active:bg-zinc-100 shadow-xs px-4 py-1 text-xs flex gap-2
@@ -171,11 +190,11 @@ export default function Profile() {
               />
 
               <Button
-              type="button"
-                onClick={
-                  updateDataUser 
+                type="button"
+                onClick={updateDataUser}
+                disabled={
+                  dadosIsFetch || (!dadosFormData.image && !dadosFormData.name)
                 }
-                disabled={dadosIsFetch || (!dadosFormData.image && !dadosFormData.name)}
                 variant={"ghost"}
                 className="mt-4  text-primary"
               >
@@ -183,38 +202,53 @@ export default function Profile() {
               </Button>
             </form>
 
-            {user.provider.includes('password') ? (
+            {user.provider.includes("password") ? (
               <>
                 <h2 className="font-bold mt-4 ">Trocar senha</h2>
                 <form ref={changePasswordFormRef}>
                   <div className="flex flex-col gap-2 mt-4">
                     <Label>Senha atual</Label>
                     <Input
-                    required minLength={6}  maxLength={20}  onChange={(ev)=>{
-                      setChangePasswordFormData({
-                        ...changePasswordFormData,
-                        currentPassword: ev.target.value
-                      })
-                    }} name="current-password" type="password" placeholder="Senha atual" />
+                      required
+                      minLength={6}
+                      maxLength={20}
+                      onChange={(ev) => {
+                        setChangePasswordFormData({
+                          ...changePasswordFormData,
+                          currentPassword: ev.target.value,
+                        });
+                      }}
+                      name="current-password"
+                      type="password"
+                      placeholder="Senha atual"
+                    />
                   </div>
 
                   <div className="flex flex-col gap-2 mt-4">
                     <Label>Nova Senha</Label>
                     <Input
-                    required
-                    minLength={6}  maxLength={20} onChange={(ev)=>{
-                      setChangePasswordFormData({
-                        ...changePasswordFormData,
-                        newPassword: ev.target.value
-                      })
-                    }} name="new-password" type="password" placeholder="Nova senha" />
+                      required
+                      minLength={6}
+                      maxLength={20}
+                      onChange={(ev) => {
+                        setChangePasswordFormData({
+                          ...changePasswordFormData,
+                          newPassword: ev.target.value,
+                        });
+                      }}
+                      name="new-password"
+                      type="password"
+                      placeholder="Nova senha"
+                    />
                   </div>
 
                   <Button
-                  disabled={changePasswordIsFetch || 
-                    !changePasswordFormData.currentPassword
-                     ||!changePasswordFormData.newPassword}
-                  type="button"
+                    disabled={
+                      changePasswordIsFetch ||
+                      !changePasswordFormData.currentPassword ||
+                      !changePasswordFormData.newPassword
+                    }
+                    type="button"
                     onClick={changePassword}
                     variant={"ghost"}
                     className="mt-4 text-primary"

@@ -6,7 +6,6 @@ type TutorialProps = {
 
 export default async function Tutorial({ params }: TutorialProps) {
   const {slug, tutorialSlug} = (await params);
-  console.log(slug, tutorialSlug);
 
   return <TutorialContent slug={slug}  tutorialSlug={tutorialSlug} />;
 }

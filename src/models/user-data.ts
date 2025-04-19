@@ -1,0 +1,3 @@
+type UserData = {
+    modulesCompleted: ModuleCompleted[];
+}
