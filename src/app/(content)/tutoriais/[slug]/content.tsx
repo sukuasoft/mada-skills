@@ -44,7 +44,7 @@ export default function TutorialContent({ slug }: TutorialContentProps) {
   return (
     <div>
       <Navbar currentPage="tutoriais" />
-      <div className="h-screen w-full flex flex-col ">
+      <div className="h-screen w-full flex flex-col">
         <div className="mt-[70px] flex-1 flex gap-4">
           <ModulesSidebar currentSection="tutoriais" module={module} />
 
@@ -63,7 +63,7 @@ export default function TutorialContent({ slug }: TutorialContentProps) {
                 {
                     module.tutorials.length > 0 && (
                         <Link href={`/tutoriais/${module.slug}/${module.tutorials[0].slug}`} >
-                        <Button className="mt-4" >Começar</Button>
+                        <Button className="mt-4" >Começar aprender</Button>
                         </Link>
                     )
                 }

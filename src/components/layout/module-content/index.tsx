@@ -26,7 +26,7 @@ export default function ModuleContent({
           );
           
             return [
-              currentIndex - 1 > 0
+              currentIndex - 1 >= 0
                 ? {
                 link:`/tutoriais/${module.slug}/${module.tutorials[currentIndex - 1].slug}`,
                 title:module.tutorials[currentIndex - 1].title
@@ -44,9 +44,11 @@ export default function ModuleContent({
       const currentIndex = module.exercises.findIndex(
         (item) => item.slug == currentSlug
       );
+
+
       
         return [
-          currentIndex - 1 > 0
+          currentIndex - 1 >= 0
             ? {
                 link:`/exercicios/${module.slug}/${module.exercises[currentIndex - 1].slug}`,
                 title:module.exercises[currentIndex - 1].title
@@ -68,7 +70,7 @@ export default function ModuleContent({
   }, [currentSection, module, currentSlug]);
 
   return (
-    <div className="flex-1 flex flex-col overflow-y-auto py-6 px-6">
+    <div className="flex-1 flex flex-col overflow-auto  py-6 px-6">
       <div className="mb-4 flex-1 flex flex-col">
         {children}
       </div>

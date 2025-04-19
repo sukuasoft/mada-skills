@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Button } from "../ui/button";
 import { ArrowUpRight } from "lucide-react";
+import { scoreApproved } from "@/lib/constants";
 
 type ModuleProgresCardProps = {
   icon: string;
@@ -8,8 +9,6 @@ type ModuleProgresCardProps = {
   progress?:number;
   module:string;
 };
-
-const scoreApproved= 70;
 
 export default function ModuleProgresCard({
   title,

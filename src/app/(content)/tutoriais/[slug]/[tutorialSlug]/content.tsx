@@ -59,7 +59,7 @@ export default function TutorialContent({ slug, tutorialSlug }: TutorialContentP
     <div>
       <Navbar currentPage="tutoriais" />
       <div className="h-screen w-full flex flex-col ">
-        <div className="mt-[70px] flex-1 flex gap-4">
+        <div className="mt-[70px] flex-1 flex gap-4 overflow-hidden">
           <ModulesSidebar currentSection="tutoriais" currentSlug={tutorial?.slug} module={module} />
 
           <ModuleContent currentSection="tutoriais" currentSlug={tutorial?.slug} module={module}>

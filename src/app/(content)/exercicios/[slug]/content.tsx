@@ -64,7 +64,7 @@ export default function ExercicioContent({ slug }: ExercicioContentProps) {
                 {
                     module.exercises.length > 0 && (
                         <Link href={`/exercicios/${module.slug}/${module.exercises[0].slug}`} >
-                        <Button className="mt-4" >Começar</Button>
+                        <Button className="mt-4" >Começar praticar</Button>
                         </Link>
                     )
                 }

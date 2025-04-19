@@ -31,3 +31,12 @@ export function getShortName(name:string){
     return names[0].charAt(0).toUpperCase() + ". " + names[names.length - 1];
   }
 }
+
+export async function delayInSeconds (seconds:number){
+  await new Promise<void>((resolve)=>{
+    setTimeout(()=>{
+        resolve();
+    }, seconds * 1000);
+})
+
+}

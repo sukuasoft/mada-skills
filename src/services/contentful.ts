@@ -8,6 +8,7 @@ const accessToken='YjhWoAy3g4JUegPXHtSKIVutgwqSI3j7GZTla2fQX7Y';
 
 async function baseQuery (query:string){
   const queryUrl = `${baseUrl}/spaces/${spaceId}/environments/${environmentId}${query}${query[query.length-1] != '?' && '&'}access_token=${accessToken}`;
+  
   return get(queryUrl);
 }
 

@@ -24,12 +24,13 @@ export async function getTutorialsByModule (moduleId:string):Promise<Tutorial[]>
 }
 
 export async function getTutorialBySlug (slug:string):Promise<Tutorial | null>{
-  const entries =  await getEntries('tutorial', 0, 'fields.title,fields.slug,fields.order,fields.content,fields.module,sys.id', 
+  const entries =  await getEntries('tutorial', 1, 'fields.title,fields.slug,fields.order,fields.content,fields.module,sys.id', 
   `fields.slug=${slug}`,
   );
 
   if(entries && entries.items.length > 0){
     const item = entries.items[0];
+  
     return {
       id: item.sys.id,
       title: item.fields.title,

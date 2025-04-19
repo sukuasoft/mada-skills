@@ -9,14 +9,15 @@ import { getExercisesByModule } from "@/repositories/exercise";
 import { getQuestionsByExercise } from "@/repositories/question";
 import { getTutorialsByModule } from "@/repositories/tutorial";
 import { useRouter } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
+import { Check, Loader2, X } from "lucide-react";
+import { useGame } from "@/hooks/game";
 
 type ExerciseContentProps = {
   slug: string;
   exerciseSlug: string;
 };
-
-type StateExercise = '' | 'doing' | 'solved';
 
 export default function ExerciseContent({
   slug,
@@ -25,10 +26,47 @@ export default function ExerciseContent({
   const { modules } = useContent();
 
   const [module, setModule] = useState<Module | null>(null);
-  const [exercise, setExercise] = useState<Exercise | null>(null);
-  const [stateExercise, setStateExercise] = useState<StateExercise>(""); // "", "doing","solved"
-
   const router = useRouter();
+  const {
+    stateExercise,
+    preparingQuiz,
+    handleStartQuiz,
+    maxQuestions,
+    approved,
+    score,
+    restTime,
+    questionsAnswered,
+    currentQuestion,
+    setStateExercise,
+    optionSelected,
+    onSelectOption,
+    responding,
+    submitResponse,
+    responseAnalyzed,
+    setOnFetchQuestions,
+    setOnDone,
+  } = useGame();
+
+  const [exercise, setExercise] = useState<Exercise | null>(null);
+
+  async function fetchQuestions() {
+    const _questions: Question[] = [];
+    if (!exercise) return _questions;
+
+    _questions.push(...(await getQuestionsByExercise(exercise.id)));
+
+    return _questions;
+  }
+
+  useEffect(()=>{
+    if(exercise){
+
+      setOnFetchQuestions(()=>fetchQuestions);
+
+      // setOnDone(()=> (_score:number)=>console.log(_score))
+    }
+
+  }, [exercise])
 
   async function fetchDetails() {
     if (modules.length == 0) return;
@@ -48,11 +86,8 @@ export default function ExerciseContent({
       );
 
       if (_exercise) {
-        const _questions = await getQuestionsByExercise(_exercise.slug);
-        setExercise({
-          ..._exercise,
-          questions: _questions,
-        });
+        setExercise(_exercise);
+     
       } else {
         router.push(`/tutoriais/${slug}`);
       }
@@ -84,25 +119,111 @@ export default function ExerciseContent({
             {exercise && (
               <div className="flex-1 flex flex-col items-center justify-center">
                 <div className="w-[450px] mx-auto text-center">
-                  <h1 className="text-3xl font-bold mb-3">Exercício: {exercise.title}</h1>
-                  {
-                    stateExercise == '' ? (
-                      <>
-                        <p>Vamos praticar?</p>
-                        <Button onClick={()=>{
-                          setStateExercise('doing');
-                        }} className="mt-6" >Começar</Button>
+                  <h1 className="text-3xl font-bold mb-3">
+                    Exercício: {exercise.title}
+                  </h1>
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      className="relative"
+                      key={stateExercise}
+                      initial={{
+                        opacity: 0,
+                        left: -50,
+                      }}
+                      animate={{
+                        opacity: 1,
+                        left: 0,
+                      }}
+                      exit={{
+                        opacity: 0,
+                        left: -50,
+                      }}
+                      transition={{
+                        duration: 0.5,
+                        ease: "easeInOut",
+                      }}
+                    >
+                      {stateExercise == "" ? (
+                        <>
+                          <p>Vamos praticar?</p>
+                          <Button
+                            disabled={preparingQuiz}
+                            onClick={handleStartQuiz}
+                            className="mt-6 items-center gap-1 flex w-fit mx-auto"
+                          >
+                            {preparingQuiz && (
+                              <motion.div
+                                initial={{
+                                  rotate: 0,
+                                }}
+                                animate={{
+                                  rotate: 360,
+                                }}
+                                transition={{
+                                  duration: 1,
+                                  repeat: Infinity,
+                                  ease: "linear",
+                                }}
+                              >
+                                <Loader2 size={30} />
+                              </motion.div>
+                            )}
+                            Começar
+                          </Button>
+                        </>
+                      ) : stateExercise == "doing" ? (
+                        <ExerciseArea
+                          responseAnalyzed={responseAnalyzed}
+                          restTime={restTime}
+                          optionSelected={optionSelected}
+                          onSelectOption={onSelectOption}
+                          responding={responding}
+                          submitResponse={submitResponse}
+                          questionsAnswered={questionsAnswered}
+                          currentQuestion={currentQuestion}
+                          maxQuestions={maxQuestions}
+                        />
+                      ) : (
+                        <div>
+                          <div
+                            className={`${
+                              approved ? `bg-green-100` : `bg-red-100`
+                            } mb-2 px-4 py-4 rounded-full w-fit mx-auto`}
+                          >
+                            {approved ? (
+                              <Check className="text-green-500" size={30} />
+                            ) : (
+                              <X className="text-red-500" size={30} />
+                            )}
+                          </div>
 
-                      </>
-                    ):(
-                      stateExercise == 'doing' ? (
-                      <>
-                      <ExerciseArea />
-                      </>
-                    ):(
-                      <div>Resolvido</div>
-                    ))
-                  }
+                          <p className="font-bold text-2xl text-center mb-2">
+                            {approved ? "Aprovado!" : "Reprovado!"}
+                          </p>
+                          <p className="text-zinc-700 text-center mb-4">
+                            {approved
+                              ? "Você conseguiu a pontuação necessária para ser aprovado."
+                              : "Você não conseguiu a pontuação necessária para ser aprovado."}
+                          </p>
+
+                          <p className="text-zinc-500  text-center mb-6">
+                            Sua pontuação foi de {score}%
+                          </p>
+
+                       {
+                       score < 100 && (
+                          <Button
+                            onClick={() => {
+                              setStateExercise("");
+                            }}
+                            className="mt-4"
+                          >
+                            Tentar novamente
+                          </Button>)}
+                        </div>
+                      )}
+                    </motion.div>
+                  </AnimatePresence>
                 </div>
               </div>
             )}

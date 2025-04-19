@@ -12,7 +12,7 @@ export async function getQuestionsByExercise(exerciseId:string):Promise<Question
       return {
         id: item.sys.id,
         question: item.fields.question,
-        exerciseId: item.fields.module.sys.id,
+        exerciseId: item.fields.exercise.sys.id,
         options: item.fields.options,
         optionCorrect: item.fields.optionCorrect,
         order: item.fields.order,
