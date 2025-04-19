@@ -1,7 +1,8 @@
 type Tutorial =  {
+    id:string;
     title:string;
     slug:string;
-    content:string;
+    content:any;
     moduleId:string;
     order:number;
 

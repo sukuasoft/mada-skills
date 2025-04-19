@@ -142,7 +142,7 @@ export default function Login() {
             name="password" type="password" placeholder="Sua senha" />
           </div>
 
-          <Link href="/esqueceu-senha">
+          <Link href="/recuperar-senha">
             <Button
               type="button"
               variant={"link"}

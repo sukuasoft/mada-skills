@@ -7,14 +7,17 @@ const accessToken='YjhWoAy3g4JUegPXHtSKIVutgwqSI3j7GZTla2fQX7Y';
 
 
 async function baseQuery (query:string){
- return get(`${baseUrl}/spaces/${spaceId}/environments/${environmentId}${query}${query[query.length-1] != '?' && '&'}access_token=${accessToken}`);
+  const queryUrl = `${baseUrl}/spaces/${spaceId}/environments/${environmentId}${query}${query[query.length-1] != '?' && '&'}access_token=${accessToken}`;
+  return get(queryUrl);
 }
 
-export async function getEntries(contentType?: string, include?: number) {
+export async function getEntries(contentType?: string,  include?: number, select?: string,extras?:string) {
   const query = contentType ? `?content_type=${contentType}` : '?';
-  const includeQuery = include ? `${contentType && '&'}include=${include}` : '';
+  const includeQuery = include != undefined ? `${contentType && '&'}include=${include}` : '';
+  const selectQuery = select ? `${(contentType || include != undefined) && '&'}select=${select}` : '';
+  const extrasQuery = extras ? `${(contentType || include != undefined || select) && '&'}${extras}` : '';
 
-  return await baseQuery(`/entries${query}${includeQuery}`);
+  return await baseQuery(`/entries${query}${includeQuery}${selectQuery}${extrasQuery}`);
 
 }
 
