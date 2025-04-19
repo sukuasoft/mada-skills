@@ -152,7 +152,13 @@ export default function CertificadoContent({ slug }: CertificadoContentProps) {
                           </p>
                           <Button
                             disabled={preparingQuiz}
-                            onClick={handleStartQuiz}
+                            onClick={()=>{
+                              if(!user) {
+                                router.push('/login');
+                                return;
+                              }
+                              handleStartQuiz();
+                            }}
                             className="mt-6 items-center gap-1 flex w-fit mx-auto"
                           >
                             {preparingQuiz && (
