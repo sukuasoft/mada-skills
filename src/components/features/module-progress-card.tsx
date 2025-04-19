@@ -1,7 +1,12 @@
+'use client';
+
 import Link from "next/link";
 import { Button } from "../ui/button";
 import { ArrowUpRight } from "lucide-react";
 import { scoreApproved } from "@/lib/constants";
+import { generateCertificateAction } from "@/actions/certificate";
+import { useState } from "react";
+import { useApp } from "@/providers/app-provider";
 
 type ModuleProgresCardProps = {
   icon: string;
@@ -16,6 +21,27 @@ export default function ModuleProgresCard({
   module,
   progress
 }: ModuleProgresCardProps) {
+
+  const [fetchCertificate, setFetchCertificate] = useState(false);
+  const {user} = useApp();
+
+  async  function downloadCertificate (){
+
+    if (progress == undefined || progress < scoreApproved || fetchCertificate || !user) return; 
+
+    setFetchCertificate(true);
+
+    const imageResult = await generateCertificateAction(title,user.name, progress);
+
+    const link = document.createElement('a');
+    link.href = `${imageResult.content}`;
+    link.download = `${imageResult.name}.png`;
+    link.click();
+
+    setFetchCertificate(false);
+
+  }
+
   return (
     <div className="flex gap-1 items-center group">
       <Link href={`/certificados/${module}`} className={`flex w-[250px] gap-1 shadow-md rounded-lg
@@ -42,7 +68,7 @@ export default function ModuleProgresCard({
             }
         </div>
       </Link>
-     {(progress && progress >= scoreApproved) &&  <Button variant={"link"}>Baixar certificado</Button>}
+     {(progress && progress >= scoreApproved) &&  <Button disabled={fetchCertificate} onClick={downloadCertificate} variant={"link"}>Baixar certificado</Button>}
     </div>
   );
 }
