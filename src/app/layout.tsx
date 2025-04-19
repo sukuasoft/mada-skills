@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     siteName: "MadaSkills",
     images: [
       {
-        url: "/madaskills.png",
+        url: "/madaskills.jpg",
       },
     ],
     type: "website",
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   twitter: {
     title: "MadaSkills",
     description: "Construa o amanhã com habilidades de hoje",
-    images: ["/madaskills.png"],
+    images: ["/madaskills.jpg"],
   },
  
 };
