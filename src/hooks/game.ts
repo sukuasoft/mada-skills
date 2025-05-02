@@ -109,7 +109,7 @@ export function useGame() {
     let _responseAnalyzed: ResponseAnalyzed | undefined;
 
     if (
-      currentQuestion.optionCorrect == currentQuestion.options[optionSelected]
+      currentQuestion.optionCorrect.trim() == currentQuestion.options[optionSelected].trim()
     ) {
       _responseAnalyzed = {
         correctOption: optionSelected,
