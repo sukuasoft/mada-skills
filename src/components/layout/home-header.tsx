@@ -5,6 +5,7 @@ import { Button } from "../ui/button";
 import { ArrowRight, Star } from "lucide-react";
 import Link from "next/link";
 import { useContent } from "@/providers/content-provider";
+import bgDev from '@/assets/bg-dev2.jpg';
 
 export default function HomeHeader() {
   const {modules} = useContent();
@@ -13,8 +14,16 @@ export default function HomeHeader() {
     <header className="h-screen w-full flex flex-col">
       <div
         className="from-primary to-primary-dark    text-white flex-1 
-         mt-[70px] bg-radial flex items-center justify-center"
+         mt-[70px] bg-radial flex items-center justify-center relative"
       >
+
+<Image className="top-0  mix-blend-multiply
+                  select-none  pointer-events-none
+                  w-full h-full   object-cover
+                absolute left-0  saturate-0 brightness-[1.5]
+                
+                  "
+                    src={bgDev} alt="" />
         <div className="w-[350px]  max-w-full relative">
         
             <Image

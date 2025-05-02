@@ -1,4 +1,5 @@
 "use client";
+import ContentLocked from "@/components/features/content-locked";
 import ModuleContent from "@/components/layout/module-content";
 import ModulesSidebar from "@/components/layout/module-sidebar";
 import Navbar from "@/components/layout/navbar";
@@ -43,6 +44,7 @@ export default function ExercicioContent({ slug }: ExercicioContentProps) {
 
   return (
     <div>
+      {module && ( <ContentLocked module={module}/>)}
       <Navbar currentPage="exercicios" />
       <div className="h-screen w-full flex flex-col ">
         <div className="mt-[70px] flex-1 flex gap-4">

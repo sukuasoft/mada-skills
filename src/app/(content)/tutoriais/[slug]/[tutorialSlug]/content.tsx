@@ -1,4 +1,5 @@
 "use client";
+import ContentLocked from "@/components/features/content-locked";
 import RichContent from "@/components/features/rich-content";
 import ModuleContent from "@/components/layout/module-content";
 import ModulesSidebar from "@/components/layout/module-sidebar";
@@ -57,6 +58,7 @@ export default function TutorialContent({ slug, tutorialSlug }: TutorialContentP
 
   return (
     <div>
+        {module && ( <ContentLocked module={module}/>)}
       <Navbar currentPage="tutoriais" />
       <div className="h-screen w-full flex flex-col ">
         <div className="mt-[70px] flex-1 flex gap-4 overflow-hidden">

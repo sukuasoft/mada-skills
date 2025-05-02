@@ -14,6 +14,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { Check, X } from "lucide-react";
 import { useGame } from "@/hooks/game";
 import Loading from "@/components/features/loading";
+import ContentLocked from "@/components/features/content-locked";
 
 type ExerciseContentProps = {
   slug: string;
@@ -103,6 +104,7 @@ export default function ExerciseContent({
 
   return (
     <div>
+       {module && ( <ContentLocked module={module}/>)}
       <Navbar currentPage="exercicios" />
       <div className="h-screen w-full flex flex-col ">
         <div className="mt-[70px] flex-1 flex gap-4">

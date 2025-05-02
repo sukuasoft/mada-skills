@@ -17,6 +17,7 @@ import ExerciseArea from "@/components/features/exercise-area";
 import { addModuleCompleted } from "@/repositories/module-completed";
 import { useApp } from "@/providers/app-provider";
 import Loading from "@/components/features/loading";
+import ContentLocked from "@/components/features/content-locked";
 
 type CertificadoContentProps = {
   slug: string;
@@ -103,8 +104,12 @@ export default function CertificadoContent({ slug }: CertificadoContentProps) {
 
   return (
     <div>
+      
+      {module && ( <ContentLocked module={module}/>)}
+   
       <Navbar currentPage="certificados" />
       <div className="h-screen w-full flex flex-col ">
+
         <div className="mt-[70px] flex-1 flex gap-4">
           <ModulesSidebar currentSection="certificados" module={module} />
 

@@ -4,7 +4,9 @@ import { maxTime } from "@/lib/constants";
 import { delayInSeconds } from "@/lib/utils";
 type StateExercise = "" | "doing" | "solved";
 
-const _maxQuestions = 5;
+
+// Máximo de questões que podem ser feitas
+const _maxQuestions = 10;
 
 export interface ResponseAnalyzed {
   wrongOption?: number;
