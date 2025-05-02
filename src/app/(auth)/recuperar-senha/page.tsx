@@ -12,6 +12,7 @@ import { useApp } from "@/providers/app-provider";
 import {motion, AnimatePresence} from 'motion/react';
 import { useRouter } from "next/navigation";
 import Loading from "@/components/features/loading";
+import { Check } from "lucide-react";
 
 type FormData = {
   email: string;

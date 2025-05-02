@@ -3,9 +3,9 @@ import { Button } from "../ui/button";
 import { Progress } from "../ui/progress";
 import QuizArea from "./question-area";
 import { ChevronRight } from "lucide-react";
-import {motion} from 'motion/react'
 
 import { ResponseAnalyzed } from "@/hooks/game";
+import Loading from "./loading";
 
 type ExerciseAreaProps = {
   maxQuestions: number;
