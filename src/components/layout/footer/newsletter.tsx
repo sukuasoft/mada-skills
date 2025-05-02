@@ -47,7 +47,7 @@ export default function Newsletter() {
           subscribe();
         }
       }}
-      className="text-sm w-[250px] ml-auto"
+      className="text-sm w-[250px] min-sm:ml-auto"
     >
       <p className="font-bold mb-1">Newsletter</p>
       <p className="opacity-75 text-xs mb-3">

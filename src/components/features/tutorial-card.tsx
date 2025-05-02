@@ -10,7 +10,7 @@ type TutorialCardProps = {
 export default function TutorialCard ({title, image, href}:TutorialCardProps) {
 
     return (
-        <div className="bg-white text-black  px-4 pt-8 pb-3 rounded-xl shadow-md">
+        <div className="bg-white text-black w-[150px]   px-4 pt-8 pb-3 rounded-xl shadow-md">
             <img src={image} width={50} height={50} className="object-cover mx-auto mb-8" alt={title}/>
             <h2 className="mb-2">{title}</h2>
 

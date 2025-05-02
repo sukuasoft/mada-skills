@@ -17,7 +17,7 @@ export default function Footer() {
   
   return (
     <footer className="bg-[#0a294e] text-white px-10 py-6">
-      <div className="  flex gap-10">
+      <div className="  flex gap-10 flex-wrap">
         <div className="text-sm w-[220px]">
           <Image
             src={icon}

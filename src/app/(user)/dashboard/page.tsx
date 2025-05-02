@@ -29,11 +29,11 @@ export default function Dashboard() {
   return (
     <div>
       <Navbar />
-      <div className="pt-[100px] pb-[20px] flex min-h-screen gap-6">
+      <div className="pt-[100px] pb-[20px] w-screen flex min-h-screen gap-6">
         <UserSidebar />
 
         {user && (
-          <div>
+          <div className="max-sm:px-6 flex-1">
             <p className="font-bold  text-sm">{user.name}</p>
             <p className="mb-6 text-zinc-400 text-sm">{user.email}</p>
 
@@ -42,7 +42,7 @@ export default function Dashboard() {
               Seu progresso
             </p>
 
-            <div className="flex flex-col gap-2 mt-6">
+            <div className="flex flex-col gap-2 mt-6 w-[300px] max-w-full">
               {modules.map((module: Module) => {
                 const progress = user.modulesCompleted.find(
                   (mod) => mod.slug == module.slug

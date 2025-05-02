@@ -127,7 +127,7 @@ export default function Profile() {
         <UserSidebar />
 
         {user && (
-          <div>
+          <div className="max-sm:px-6">
             <p className="font-bold  text-sm">{user.name}</p>
             <p className="mb-6 text-zinc-400 text-sm">{user.email}</p>
 

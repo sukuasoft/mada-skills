@@ -190,7 +190,7 @@ export default function Register() {
           </p>
         </form>
 
-        <Image src={youngWomen} width={200} alt="" />
+        <Image className="max-sm:hidden" src={youngWomen} width={200} alt="" />
       </div>
     </motion.div>
     </AnimatePresence>

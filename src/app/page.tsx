@@ -25,6 +25,7 @@ import Link from "next/link";
 import Footer from "@/components/layout/footer";
 import { useContent } from "@/providers/content-provider";
 
+
 export default function Home() {
   const {testimonies, modules}=useContent();
   return (
@@ -32,18 +33,21 @@ export default function Home() {
       <Navbar currentPage="home" />
       <HomeHeader />
 
-      <div className="flex gap-4 px-10 py-10 bg-[#e9f3ff] items-center">
-        <div className="flex gap-1 flex-col">
+      <div className="flex flex-col gap-4 px-10 py-10 bg-[#e9f3ff] 
+      w-screen ">
+        <div className="flex gap-1 flex-col max-sm:w-fit  w-fit
+         ">
           <p className="text-primary-dark font-bold text-3xl">Melhores</p>
           <div className="bg-primary-dark h-[1px]"></div>
           <p className="text-primary  font-bold text-3xl">Tutoriais</p>
         </div>
 
-        <Carousel className="mx-20 w-[500px]">
-          <CarouselContent className=" flex gap-4 px-10 py-6">
+        <div className="px-15">
+        <Carousel className="w-full ">
+          <CarouselContent className=" ">
             {modules.map((module) => {
               return (
-                <CarouselItem key={module.id} className="basis-1/3">
+                <CarouselItem key={module.id} className="basis-0 flex-none">
                   <TutorialCard
                     title={module.title}
                     href={`/tutoriais/${module.slug}`}
@@ -54,8 +58,9 @@ export default function Home() {
             })}
           </CarouselContent>
           <CarouselPrevious />
-          <CarouselNext />
+          <CarouselNext/>
         </Carousel>
+        </div>
       </div>
 
       <HomeSection
@@ -63,7 +68,7 @@ export default function Home() {
         description="Várias versões evoluíram ao longo dos anos, não por acidente, 
 mas como resultado da prática contínua e da busca intencional por aprimoramento."
       >
-        <div className="flex gap-4 flex-wrap items-center">
+        <div className="flex gap-4 flex-wrap items-center max-sm:items-center max-sm:justify-center">
           {modules.map((module) => {
             return (
               <ExerciseCard
@@ -80,8 +85,9 @@ mas como resultado da prática contínua e da busca intencional por aprimorament
         title="Nossas conquistas"
         description='Formamos novos talentos em programação web, conectando alunos ao mercado com projetos práticos e reais."'
       >
-        <div className="flex gap-4 items-center justify-between">
-          <div className="grid grid-cols-2 gap-6">
+        <div className="flex gap-4 items-center justify-between max-sm:justify-start">
+          <div className="grid grid-cols-2 max-[400px]:flex max-[400px]:flex-wrap gap-6
+          max-sm:w-full max-[400px]:justify-center">
             <Conquista title="Tutoriais" value={30} icon={<BookOpen />} />
             <Conquista title="Exercícios" value={50} icon={<Dumbbell />} />
             <Conquista
@@ -92,7 +98,7 @@ mas como resultado da prática contínua e da busca intencional por aprimorament
             <Conquista title="Certificações" value={10} icon={<FileBadge />} />
           </div>
 
-          <Image width={250} src={youngWomen} alt="" />
+          <Image className="max-sm:hidden" width={250} src={youngWomen} alt="" />
         </div>
       </HomeSection>
 
@@ -100,11 +106,13 @@ mas como resultado da prática contínua e da busca intencional por aprimorament
         title="Nossas testemunhos"
         description="Veja o que os nossos alunos têm a dizer! Suas histórias refletem o impacto real da nossa plataforma"
       >
-        <Carousel className="mx-20 ">
+        
+        <div className="px-5">
+        <Carousel className="w-full ">
           <CarouselContent className=" flex gap-4 px-10 py-6 ">
             {testimonies.map((item, index) => {
               return (
-                <CarouselItem key={index} className="basis-1/2">
+                <CarouselItem key={index} className="basis-0 flex-none">
                   <TestemunhoCard
                     name={item.name}
                     position={item.position}
@@ -117,12 +125,13 @@ mas como resultado da prática contínua e da busca intencional por aprimorament
           <CarouselPrevious />
           <CarouselNext />
         </Carousel>
+        </div>
       </HomeSection>
 
-      <div className="flex gap-4 px-10 py-10 bg-[#e9f3ff] items-center text-black justify-center">
+      <div className="flex gap-4 px-10 py-10 max-sm:flex-wrap max-sm:text-center bg-[#e9f3ff] items-center text-black justify-center">
         <Image width={250} src={youngGroup} alt="" />
 
-        <div className="w-[300px]">
+        <div className="w-[300px] max-w-full">
           <p className="mb-2 font-bold">
             Junte-se à <span className="text-primary">maior plataforma </span>
             aprendizagem do mundo hoje mesmo

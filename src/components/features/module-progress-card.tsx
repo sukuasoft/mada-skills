@@ -44,8 +44,8 @@ export default function ModuleProgresCard({
   }
 
   return (
-    <div className="flex gap-1 items-center group">
-      <Link href={`/certificados/${module}`} className={`flex w-[250px] gap-1 shadow-md rounded-lg
+    <div className="flex gap-1 items-center group flex-wrap w-full">
+      <Link href={`/certificados/${module}`} className={`flex flex-1 gap-1 shadow-md rounded-lg
        bg-white px-4 py-2 text-xs items-center ${progress == 100 && 'pointer-events-none'}`}>
         <img
           src={icon}

@@ -13,7 +13,7 @@ export default function TestemunhoCard({
 
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-6 relative  select-none">
+    <div className="bg-white w-[350px] max-sm:w-[220px]  rounded-lg shadow-md p-6 relative  select-none">
         <Quote fill="#0B73E1" className="absolute right-5 top-5 text-primary"/>
     
         <p className="font-bold">{name}</p>
