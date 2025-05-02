@@ -13,8 +13,10 @@ export async function getQuestionsByExercise(exerciseId:string):Promise<Question
         id: item.sys.id,
         question: item.fields.question,
         exerciseId: item.fields.exercise.sys.id,
-        options: item.fields.options,
-        optionCorrect: item.fields.optionCorrect,
+        options: item.fields.options.map((option:any) => {
+          option.trim();
+        }),
+        optionCorrect: item.fields.optionCorrect.trim(),
         order: item.fields.order,
       };
     });
