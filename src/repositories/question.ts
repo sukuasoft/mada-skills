@@ -14,7 +14,7 @@ export async function getQuestionsByExercise(exerciseId:string):Promise<Question
         question: item.fields.question,
         exerciseId: item.fields.exercise.sys.id,
         options: item.fields.options.map((option:any) => {
-          option.trim();
+          return option.trim();
         }),
         optionCorrect: item.fields.optionCorrect.trim(),
         order: item.fields.order,
