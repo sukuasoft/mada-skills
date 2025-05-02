@@ -10,8 +10,8 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { useApp } from "@/providers/app-provider";
 import {motion, AnimatePresence} from 'motion/react';
-import { Check, Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import Loading from "@/components/features/loading";
 
 type FormData = {
   email: string;
@@ -112,19 +112,9 @@ export default function ForgotPassword() {
           className={`w-[300px] ${isFetch ? " opacity-50 relative pointer-events-none" : ""}`}
         >
         {isFetch && (
-            <motion.div 
-            initial={{
-                rotate: 0,
-            }}
-            animate={{
-                rotate: 360,
-            }} transition={{
-                duration: 1,
-                repeat: Infinity,
-                ease: "linear",
-            }} className="absolute top-1/2 left-1/2  -translate-x-1/2  -translate-y-1/2">
-              <Loader2    size={30}/>
-              </motion.div>
+  
+         <Loading className="absolute top-1/2 left-1/2  -translate-x-1/2  -translate-y-1/2" size={30} />
+       
       )}
           <p className="font-bold text-2xl text-center">Esqueceu a senha?</p>
           <p className="text-zinc-500 text-sm mt-2 text-center mb-6">

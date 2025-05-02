@@ -11,8 +11,9 @@ import { getTutorialsByModule } from "@/repositories/tutorial";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { Check, Loader2, X } from "lucide-react";
+import { Check, X } from "lucide-react";
 import { useGame } from "@/hooks/game";
+import Loading from "@/components/features/loading";
 
 type ExerciseContentProps = {
   slug: string;
@@ -152,21 +153,8 @@ export default function ExerciseContent({
                             className="mt-6 items-center gap-1 flex w-fit mx-auto"
                           >
                             {preparingQuiz && (
-                              <motion.div
-                                initial={{
-                                  rotate: 0,
-                                }}
-                                animate={{
-                                  rotate: 360,
-                                }}
-                                transition={{
-                                  duration: 1,
-                                  repeat: Infinity,
-                                  ease: "linear",
-                                }}
-                              >
-                                <Loader2 size={30} />
-                              </motion.div>
+                                       <Loading  size={30} />
+                             
                             )}
                             Começar
                           </Button>

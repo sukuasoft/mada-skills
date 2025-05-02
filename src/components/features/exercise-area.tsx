@@ -5,7 +5,6 @@ import QuizArea from "./question-area";
 import { ChevronRight } from "lucide-react";
 import {motion} from 'motion/react'
 
-import { Loader2 } from "lucide-react";
 import { ResponseAnalyzed } from "@/hooks/game";
 
 type ExerciseAreaProps = {
@@ -41,21 +40,7 @@ export default function ExerciseArea({questionsAnswered,responseAnalyzed, submit
         Submeter
         {
           responding ? (
-            <motion.div
-            initial={{
-              rotate: 0,
-            }}
-            animate={{
-              rotate: 360,
-            }}
-            transition={{
-              duration: 1,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-          >
-            <Loader2 size={30} />
-          </motion.div>
+              <Loading  size={30} />
           ): 
           (  <ChevronRight />)
         }

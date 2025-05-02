@@ -12,10 +12,11 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { Check, Loader2, X } from "lucide-react";
+import { Check, X } from "lucide-react";
 import ExerciseArea from "@/components/features/exercise-area";
 import { addModuleCompleted } from "@/repositories/module-completed";
 import { useApp } from "@/providers/app-provider";
+import Loading from "@/components/features/loading";
 
 type CertificadoContentProps = {
   slug: string;
@@ -162,21 +163,9 @@ export default function CertificadoContent({ slug }: CertificadoContentProps) {
                             className="mt-6 items-center gap-1 flex w-fit mx-auto"
                           >
                             {preparingQuiz && (
-                              <motion.div
-                                initial={{
-                                  rotate: 0,
-                                }}
-                                animate={{
-                                  rotate: 360,
-                                }}
-                                transition={{
-                                  duration: 1,
-                                  repeat: Infinity,
-                                  ease: "linear",
-                                }}
-                              >
-                                <Loader2 size={30} />
-                              </motion.div>
+                                        <Loading 
+                                        size={30} />
+
                             )}
                             Fazer teste
                           </Button>

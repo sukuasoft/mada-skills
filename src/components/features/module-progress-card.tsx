@@ -7,6 +7,7 @@ import { scoreApproved } from "@/lib/constants";
 import { generateCertificateAction } from "@/actions/certificate";
 import { useState } from "react";
 import { useApp } from "@/providers/app-provider";
+import Loading from "./loading";
 
 type ModuleProgresCardProps = {
   icon: string;
@@ -68,7 +69,11 @@ export default function ModuleProgresCard({
             }
         </div>
       </Link>
-     {(progress && progress >= scoreApproved) &&  <Button disabled={fetchCertificate} onClick={downloadCertificate} variant={"link"}>Baixar certificado</Button>}
+     {(progress && progress >= scoreApproved) &&  <Button disabled={fetchCertificate} 
+     onClick={downloadCertificate} variant={"link"}>
+      {fetchCertificate && <Loading />}
+      {fetchCertificate ? "Baixando..." : "Baixar certificado"}
+     </Button>}
     </div>
   );
 }
