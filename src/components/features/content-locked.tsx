@@ -44,7 +44,7 @@ export default function ContentLocked({ module }: ContentLockedProps) {
         <p className="text-gray-600 text-center mt-2">
             Você precisa ser um usuário registrado para acessar este conteúdo.
         </p>
-        <Link className="mt-6" href='registro'>
+        <Link className="mt-6" href='/registro'>
         <Button>Inscreva-se agora</Button>
         </Link>
     
