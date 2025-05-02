@@ -116,7 +116,7 @@ export default function CertificadoContent({ slug }: CertificadoContentProps) {
           <ModuleContent currentSection="certificados" module={module}>
             {module && (
               <div className="flex-1 flex flex-col items-center justify-center">
-                <div className="w-[450px] mx-auto text-center">
+                <div className="w-[450px] max-w-full  mx-auto text-center">
                   <h1 className="font-bold text-2xl mb-4">
                     Certificação {module.title}
                   </h1>

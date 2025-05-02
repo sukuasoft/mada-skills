@@ -53,7 +53,7 @@ export default function ExercicioContent({ slug }: ExercicioContentProps) {
           <ModuleContent currentSection="exercicios" module={module}>
             {module && (
                        <div className="flex-1 flex flex-col items-center justify-center">
-              <div className="w-[450px] mx-auto text-center">
+              <div className="w-[450px] max-w-full  mx-auto text-center">
                 <p className="font-bold text-2xl mb-4">Exercícios</p>
 
                 <img

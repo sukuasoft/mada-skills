@@ -1,4 +1,5 @@
-import { ChevronRight, ChevronLeft } from "lucide-react";
+import { useModule } from "@/providers/module-provider";
+import { ChevronRight, ChevronLeft, Menu, MenuSquare } from "lucide-react";
 import Link from "next/link";
 import { title } from "process";
 import { useMemo } from "react";
@@ -69,8 +70,17 @@ export default function ModuleContent({
     return [null, null];
   }, [currentSection, module, currentSlug]);
 
+
+  const {showSidebar, setShowSidebar} = useModule();
+
   return (
     <div className="flex-1 flex flex-col overflow-auto  py-6 px-6">
+      <button onClick={()=>{
+       setShowSidebar(true);
+      }} className="flex items-center gap-2 min-sm:hidden mb-4 text-sm">
+        <MenuSquare size={18}/>
+        Mostrar menu 
+      </button>
       <div className="mb-4 flex-1 flex flex-col">
         {children}
       </div>

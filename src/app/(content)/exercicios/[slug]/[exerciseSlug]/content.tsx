@@ -121,7 +121,7 @@ export default function ExerciseContent({
           >
             {exercise && (
               <div className="flex-1 flex flex-col items-center justify-center">
-                <div className="w-[450px] mx-auto text-center">
+                <div className="w-[450px] max-w-full  mx-auto text-center">
                   <h1 className="text-3xl font-bold mb-3">
                     Exercício: {exercise.title}
                   </h1>

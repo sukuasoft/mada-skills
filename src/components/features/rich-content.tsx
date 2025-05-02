@@ -25,8 +25,8 @@ const options: Options = {
       <span className="underline">{text}</span>
     ),
     [MARKS.CODE]: (text: React.ReactNode) => (
-      <code className="bg-[#eee] block px-4 rounded-xl py-4 text-xs">
-        <pre>{text}</pre>
+      <code className="bg-[#eee] block px-4 rounded-xl py-4 text-xs break-words w-full">
+        <pre className="break-words">{text}</pre>
       </code>
     ),
   },

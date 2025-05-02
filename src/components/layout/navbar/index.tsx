@@ -178,7 +178,7 @@ export default function Navbar({ currentPage }: NavbarProps) {
                 </Button>
               </Link>
               <Link href="/registro">
-                <Button className="max-sm:text-xs max-sm:px-2 max-sm:py-1 ">Inscreve-se</Button>
+                <Button className="max-sm:text-xs max-sm:px-2 max-sm:py-1 max-sm:hidden">Inscreve-se</Button>
               </Link>
             </div>
           )
